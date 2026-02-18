@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Produtos</title>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <ul id="lista"></ul>
+
+    <script>
+        fetch('/api/produtos/')
+            .then(response => response.json())
+            .then(data => {
+                const lista = document.getElementById('lista');
+                data.forEach(produto => {
+                    const item = document.createElement('li');
+                    item.textContent = produto.nome + " - R$ " + produto.preco;
+                    lista.appendChild(item);
+                });
+            });
+    </script>
+</body>
+</html>
+

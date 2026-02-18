@@ -1,0 +1,71 @@
+:root {
+  --border : rgba(255,255,255,0.4);
+  --background : rgba(0,0,0, 0.3); 
+}
+*{
+	font-family:Segoe;
+}
+.caixa {
+	color:white;
+	width: 30%;
+	margin: auto auto; 
+	background: var(--background);
+	backdrop-filter: blur(4px);
+	border:1px solid  var(--border);
+	border-radius:20px;
+	padding-left:15px;
+	padding-right:15px;
+	box-shadow: 0 0 10px var(--background);
+}
+.botao{
+	font-size:100%;
+	color:white;
+	background:none;
+	margin:10px; 
+	display: inline-block; 
+	border:1px solid  var(--border);
+	border-radius:20px;
+	padding:1px 15px 1px 15px;
+	text-decoration: none; 
+	min-width:20px;
+	justify-content: center;
+	align-items: center;
+}
+.botao *{
+	color:white;
+	text-align: center;
+	text-decoration: none; 
+}
+.botao:hover{
+	text-shadow:-1px -1px 5px var(--background),1px 1px 5px var(--background);
+	background: var(--background);
+	transform: translateY(1px);
+}
+.caixaTexto{
+	display: block;
+	width:90%;
+	color:#111;
+	margin:10px 1%; 
+	border:1px solid  var(--border);
+	border-radius:20px;
+	padding-left:15px;
+	padding-right:15px;
+}
+.centro{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.ho{
+	margin-left:10%;
+	display: block;
+	align-items: center;
+}
+.logo{
+width:50%;
+margin:0px 25%;
+}
+body {
+    background: repeating-linear-gradient(90deg,#efefef,#efefef 10px, #ededed 10px, #ededed 20px);
+}
