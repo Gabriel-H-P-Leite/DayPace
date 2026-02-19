@@ -24,7 +24,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 def registro_view(request):
     if request.method == "POST":

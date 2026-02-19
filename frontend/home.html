@@ -2,18 +2,53 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Home</title>
+		<title>DAYPACE - Início</title>
 		{% load static %}
 		<link rel="stylesheet" href="{% static 'style.css' %}">
+		{% load static %}
+		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
-		<div class='caixa'>
-		{% load static %}
-		<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
-		<h1>Bem-vindo {{ user.username }}</h1>
-		<a class='botao' href="{% url 'login' %}">Login</a>
-		<a class='botao' href="{% url 'registro' %}">Registrar</a>
-		<a class='botao' href="{% url 'logout' %}">Sair</a>
+		<div class='centro'>
+			<div class='caixa'>
+
+				{% load static %}
+				<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
+
+				<div class='bem-vindo'>
+					<b>Bem-vindo {{ user.username }}</b>
+				</div>
+				<div class='painel'>
+					{% if user.is_authenticated %}
+						<a href="{% url 'home' %}">
+							<div class='botao'>
+								Projetos
+							</div>
+						</a>
+					{% endif %}
+					{% if not user.is_authenticated %}
+						<a href="{% url 'login' %}">
+							<div class='botao'>
+								Login
+							</div>
+						</a>
+					{% endif %}
+					{% if not user.is_authenticated %}
+						<a href="{% url 'registro' %}">
+							<div class='botao'>
+								Registrar
+							</div>
+						</a>
+					{% endif %}
+					{% if user.is_authenticated %}
+						<a href="{% url 'logout' %}">
+							<div class='botao'>
+								Sair
+							</div>
+						</a>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
