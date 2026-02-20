@@ -13,6 +13,20 @@ a, button{
 body {
 	background: radial-gradient( ellipse 14% 7% at center, #efefef 99%, #dddddd 100%);
 }
+#aviso{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height:10%;
+	width:20%;
+	z-index:10;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	padding:5% 0 0 0;
+	font-size:100%;
+	font-weight:100%;
+	cursor: pointer;
+}
 .caixa{
 	width: 30%;
 	margin: auto auto; 
