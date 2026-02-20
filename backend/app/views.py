@@ -10,15 +10,17 @@ def cadastrar(request):
     #valores no form
     if request.method == "POST":
         campos = {
-            #strip remove espaços
-            'nome de usuário' : request.POST.get("nomeUsuario", "").strip(),
-            'email' : request.POST.get("email", "").strip(),
-            'nome' : request.POST.get("nome", "").strip(),
-            'sobrenome' : request.POST.get("sobrenome", "").strip(),
-            'senha' : request.POST.get("senha", "").strip()
+            'nome de usuário' : request.POST.get("nomeUsuario"),
+            'email' : request.POST.get("email"),
+            'nome' : request.POST.get("nome"),
+            'sobrenome' : request.POST.get("sobrenome"),
+            'senha' : request.POST.get("senha")
         }
-
-        #verificações
+        #remove espaços em branco e salva tudo em minusculo
+        for chave, valor in campos.items():
+            if chave != 'senha':
+                campos[chave] = valor.strip().lower() if valor else valor
+        #verifica se algum campo esta vazio
         for nomeCampo, valor in campos.items():
             if not valor:
                 messages.error(request, f"O campo {nomeCampo} é obrigatório")
@@ -29,7 +31,6 @@ def cadastrar(request):
         if User.objects.filter(email=campos['email']).exists():
             messages.error(request, "Email já cadastrado")
             return redirect("registro")
-
         #adiciona em user os valores
         user = User.objects.create_user(
         username=campos['nome de usuário'],
@@ -41,12 +42,16 @@ def cadastrar(request):
         return redirect("login")
     return render(request, "registro.html")
 
+def deslogar(request):
+    logout(request)
+    return redirect('home')
+
 def loginV(request):
     if request.method == "POST":
         username =  request.POST.get("nomeUsuario")
         password = request.POST.get("senha")
         user = authenticate(request, username=username, password=password)
-        
+        #se user não for "" NULL
         if user is not None:
             login(request, user)
             return redirect('home')
