@@ -16,7 +16,7 @@
 				<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
 
 				<div class='bem-vindo'>
-					<b>Bem-vindo {{ user.username }}</b>
+					<b>Bem-vindo {{ user.first_name|capfirst}} {{ user.last_name|capfirst}}</b>
 				</div>
 				<div class='painel'>
 					{% if user.is_authenticated %}
