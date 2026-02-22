@@ -48,8 +48,8 @@ def deslogar(request):
 
 def loginV(request):
     if request.method == "POST":
-        username =  request.POST.get("nomeUsuario")
-        password = request.POST.get("senha")
+        username =  request.POST.get("nomeUsuario").strip().lower()
+        password = request.POST.get("senha").strip().lower()
         user = authenticate(request, username=username, password=password)
         #se user não for "" NULL
         if user is not None:

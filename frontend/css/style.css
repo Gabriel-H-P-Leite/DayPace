@@ -75,8 +75,7 @@ body {
 }
 .bem-vindo{
 	color: var(--note);
-	
-Entrar font-size:150%;
+	font-size:150%;
 	margin:0px;
 	text-align: center;
 }
