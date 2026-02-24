@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DAYPACE - Registro</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+		{% load static %}
+		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+	</head>
+	<body>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="caixa" id="aviso">
+				{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		{% load static %}
+		<script src="{% static 'script.js' %}"></script>
+		<div class='centro'>
+			<div class='caixa'>
+			{% load static %}
+			<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
+			<form method="POST">
+				<div class='painel'>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="botao" type="submit">Salvar</button>
+					<a href="{% url 'home' %}">
+						<div class='botao'>Voltar</div>
+					</a>
+				</div>
+			</form>
+			</div>
+		</div>
+	</body>
+</html>
+
+
