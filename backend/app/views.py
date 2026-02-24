@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import EditarUsuarioForm
 
 def home(request):
     return render(request, 'home.html')
@@ -42,9 +44,18 @@ def cadastrar(request):
         return redirect("login")
     return render(request, "registro.html")
 
-def deslogar(request):
-    logout(request)
-    return redirect('home')
+@login_required
+def editar(request):
+    form = EditarUsuarioForm(
+        request.POST or None,
+        instance=request.user
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("home")
+
+    return render(request, "editar.html", {"form": form})
 
 def loginV(request):
     if request.method == "POST":

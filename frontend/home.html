@@ -26,6 +26,13 @@
 							</div>
 						</a>
 					{% endif %}
+					{% if user.is_authenticated %}
+						<a href="{% url 'editar' %}">
+							<div class='botao'>
+								Editar
+							</div>
+						</a>
+					{% endif %}
 					{% if not user.is_authenticated %}
 						<a href="{% url 'login' %}">
 							<div class='botao'>
