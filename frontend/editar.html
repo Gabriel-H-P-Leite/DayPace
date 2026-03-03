@@ -9,13 +9,13 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
-		{% if messages %}
-			{% for message in messages %}
+		{% for field in form %}
+			{% for error in field.errors %}
 				<div class="caixa" id="aviso">
-				{{ message }}
+				{{ error }}
 				</div>
 			{% endfor %}
-		{% endif %}
+		{% endfor %}
 		{% load static %}
 		<script src="{% static 'script.js' %}"></script>
 		<div class='centro'>
@@ -25,7 +25,9 @@
 			<form method="POST">
 				<div class='painel'>
 				{% csrf_token %}
-				{{ form.as_p }}
+				{{ form.first_name }}
+				{{ form.last_name }} 
+				{{ form.email }}
 				<button class="botao" type="submit">Salvar</button>
 					<a href="{% url 'home' %}">
 						<div class='botao'>Voltar</div>

@@ -50,11 +50,9 @@ def editar(request):
         request.POST or None,
         instance=request.user
     )
-
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("home")
-
     return render(request, "editar.html", {"form": form})
 
 def loginV(request):
