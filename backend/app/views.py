@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from .models import Projeto
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import EditarUsuarioForm
@@ -75,3 +76,30 @@ def deslogar(request):
 def recuperarSenha(request):
     logout(request)
     return redirect('home')
+
+#PROJETOS
+@login_required
+def cadastrarProjeto(request):
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+
+        if nome:
+            Projeto.objects.create(
+                user=request.user,
+                nomeProjeto=nome.strip(),
+               
+            )
+            return redirect("projetos")
+
+    return render(request, "cadastrar_projeto.html")
+
+@login_required
+def consultarProjeto(request):
+    projetos = Projeto.objects.filter(user=request.user)
+    return render(request, "projetos.html", {"projetos": projetos})
+
+@login_required
+def quadro(request, id):
+    projeto = Projeto.objects.get(id=id, user=request.user)
+    return render(request, "kanban.html", {"projeto": projeto})
+from django.shortcuts import redirect
