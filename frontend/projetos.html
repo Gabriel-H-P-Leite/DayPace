@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DAYPACE - Projetos</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+		{% load static %}
+		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+	</head>
+	<body>
+		<div class='centro'>
+			<div class='caixa'>
+				<h1 class='bem-vindo'>Meus Projetos</h1>
+				<div id="projetos">
+					{% for projeto in projetos %}
+					<div class="botao">
+						<a href="{% url 'quadro' projeto.id %}">
+						{{ projeto.nomeProjeto }}
+						</a>
+					</div>
+					{% empty %}
+					<p>Você ainda não tem projetos.</p>
+					{% endfor %}
+				</div>
+				<div class='painel'>
+					<a class='botao' href="{% url 'cadastrarProjeto' %}">Novo Projeto</a>
+					<a class='botao' href="{% url 'home' %}">Voltar</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

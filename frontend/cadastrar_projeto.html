@@ -1,0 +1,7 @@
+<h1>Novo Projeto</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="nome" placeholder="Nome do projeto">
+    <button type="submit">Criar</button>
+</form>
