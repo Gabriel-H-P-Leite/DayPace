@@ -14,11 +14,9 @@
 				<h1 class='bem-vindo'>Meus Projetos</h1>
 				<div id="projetos">
 					{% for projeto in projetos %}
-					<div class="botao">
-						<a href="{% url 'quadro' projeto.id %}">
+					<a class="botao" href="{% url 'quadro' projeto.id %}">
 						{{ projeto.nomeProjeto }}
-						</a>
-					</div>
+					</a>
 					{% empty %}
 					<p>Você ainda não tem projetos.</p>
 					{% endfor %}

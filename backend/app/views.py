@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Projeto
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import EditarUsuarioForm
+from .models import Projeto, Tarefa
 
 def home(request):
     return render(request, 'home.html')
@@ -101,5 +101,8 @@ def consultarProjeto(request):
 @login_required
 def quadro(request, id):
     projeto = Projeto.objects.get(id=id, user=request.user)
-    return render(request, "kanban.html", {"projeto": projeto})
-from django.shortcuts import redirect
+    tarefas = Tarefa.objects.filter(projeto=projeto)
+    return render(request, "kanban.html", {
+        "projeto": projeto,
+        "tarefas": tarefas
+    })

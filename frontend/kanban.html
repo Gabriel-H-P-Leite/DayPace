@@ -9,9 +9,34 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
-		<div class="centro">
-		    <div class="nota" draggable="true">Nota 1</div>
-		    <div class="nota" draggable="true">Nota 2</div>
+		<div id='quadro'>
+			<div class='coluna fazer'>
+				{% for tarefa in tarefas %}
+				{% if tarefa.status == "todo" %}
+				<div class="nota">
+				{{ tarefa.nomeTarefa }}
+				</div>
+				{% endif %}
+				{% endfor %}
+			</div>
+			<div class='coluna fazendo'>
+				{% for tarefa in tarefas %}
+				{% if tarefa.status == "doing" %}
+				<div class="nota">
+				{{ tarefa.nomeTarefa }}
+				</div>
+				{% endif %}
+				{% endfor %}
+			</div>
+			<div class='coluna concluido'>
+				{% for tarefa in tarefas %}
+				{% if tarefa.status == "done" %}
+				<div class="nota">
+				{{ tarefa.nomeTarefa }}
+				</div>
+				{% endif %}
+				{% endfor %}
+			</div>
 		</div>
 		{% load static %}
 		<script src="{% static 'script.js' %}"></script>

@@ -16,12 +16,17 @@ class Projeto(models.Model):
         return self.nomeProjeto
 
 class Tarefa(models.Model):
+    STATUS = [
+        ("todo", "A Fazer"),
+        ("doing", "Fazendo"),
+        ("done", "Concluído"),
+    ]
     nomeTarefa = models.CharField(max_length=50)
     descricao = models.CharField(max_length=255)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=10,choices=STATUS,default="todo")
     dataInicio = models.DateField()
     dataFim = models.DateField()
-    prioridade = models.CharField(max_length=10)
+    prioridade = models.IntegerField(default=0)
     etiqueta = models.CharField(max_length=30)
 
     projeto = models.ForeignKey(
@@ -29,6 +34,5 @@ class Tarefa(models.Model):
         on_delete=models.CASCADE,
         related_name="tarefas"
     )
-
     def __str__(self):
         return self.nomeTarefa
