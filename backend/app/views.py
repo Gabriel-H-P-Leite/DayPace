@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -94,15 +96,61 @@ def cadastrarProjeto(request):
     return render(request, "cadastrar_projeto.html")
 
 @login_required
-def consultarProjeto(request):
+def editarProjeto(request):
     projetos = Projeto.objects.filter(user=request.user)
     return render(request, "projetos.html", {"projetos": projetos})
 
 @login_required
-def quadro(request, id):
+def excluirProjeto(request):
+    projetos = Projeto.objects.filter(user=request.user)
+    return render(request, "projetos.html", {"projetos": projetos})
+
+@login_required
+def consultarProjeto(request):
+    projetos = Projeto.objects.filter(user=request.user)
+    return render(request, "projetos.html", {"projetos": projetos})
+
+#TAREFAS
+@login_required
+def cadastrarTarefa(request, id):
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        descricao = request.POST.get("descricao")
+        projeto = Projeto.objects.get(id=id)
+
+        Tarefa.objects.create(
+            nomeTarefa=nome,
+            descricao=descricao,
+            status="todo",
+            projeto=projeto
+        )
+    return redirect("quadro", id=id)
+
+@login_required
+def consultarTarefa(request, id):
     projeto = Projeto.objects.get(id=id, user=request.user)
     tarefas = Tarefa.objects.filter(projeto=projeto)
+    todo = Tarefa.objects.filter(projeto=projeto, status="todo")
+    doing = Tarefa.objects.filter(projeto=projeto, status="doing")
+    done = Tarefa.objects.filter(projeto=projeto, status="done")
+
     return render(request, "kanban.html", {
         "projeto": projeto,
-        "tarefas": tarefas
+        "tarefas": tarefas,
+        "todo": todo,
+        "doing": doing,
+        "done": done
     })
+
+@login_required
+def moverTarefa(request):
+
+    data = json.loads(request.body)
+
+    tarefa = Tarefa.objects.get(id=data["id"])
+
+    tarefa.status = data["status"]
+
+    tarefa.save()
+
+    return JsonResponse({"ok": True})

@@ -24,8 +24,8 @@ class Tarefa(models.Model):
     nomeTarefa = models.CharField(max_length=50)
     descricao = models.CharField(max_length=255)
     status = models.CharField(max_length=10,choices=STATUS,default="todo")
-    dataInicio = models.DateField()
-    dataFim = models.DateField()
+    dataInicio = models.DateField(default=timezone.now)
+    dataFim = models.DateField(null=True, blank=True)
     prioridade = models.IntegerField(default=0)
     etiqueta = models.CharField(max_length=30)
 

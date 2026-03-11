@@ -103,8 +103,6 @@ body {
 	color:black;
 	box-shadow: 1px 1px 3px black;
 	background: linear-gradient(to bottom,#ffd208 0%,#ffd208 5%,var(--note) 5%,var(--note) 100%);
-	cursor:grab;
-	position: absolute;
 	text-align: center;
 	font-size:100%;
 	max-width: 200px;
@@ -124,6 +122,15 @@ body {
 	position:absolute;
 	top:2px;
 	right:2px;
+}
+#barra{
+	display: flex;
+	background:#efefef;
+	padding: 5px;
+	justify-content:space-between;
+}
+#barra *{
+	display: flex;
 }
 #quadro{
 	display: flex;

@@ -9,32 +9,41 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
+		<div id='barra'>
+			<form method='POST' action='{% url 'cadastrarTarefa' projeto.id %}'>
+				{% csrf_token %}
+				<input name='nome' class='caixaTexto' type="text" placeholder="Tarefa">
+				<input name='descricao' class='caixaTexto' type="text" placeholder="Descrição">
+				<button class='botao'>Adicionar nota</button>
+			</form>
+			<div>
+				Quantidade de notas:
+				{{ tarefas|length }}
+			</div>
+		</div>
 		<div id='quadro'>
-			<div class='coluna fazer'>
-				{% for tarefa in tarefas %}
-				{% if tarefa.status == "todo" %}
-				<div class="nota">
-				{{ tarefa.nomeTarefa }}
+			<div class='coluna fazer' data-status='todo'>
+				<h2>A Fazer</h2>
+				{% for tarefa in todo %}
+				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+					{{tarefa.nomeTarefa}}
 				</div>
-				{% endif %}
 				{% endfor %}
 			</div>
-			<div class='coluna fazendo'>
-				{% for tarefa in tarefas %}
-				{% if tarefa.status == "doing" %}
-				<div class="nota">
-				{{ tarefa.nomeTarefa }}
+			<div class='coluna fazendo' data-status='doing'>
+				<h2>Fazendo</h2>
+				{% for tarefa in doing %}
+				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+					{{tarefa.nomeTarefa}}
 				</div>
-				{% endif %}
 				{% endfor %}
 			</div>
-			<div class='coluna concluido'>
-				{% for tarefa in tarefas %}
-				{% if tarefa.status == "done" %}
-				<div class="nota">
-				{{ tarefa.nomeTarefa }}
+			<div class='coluna concluido' data-status='done'>
+				<h2>Concluido</h2>
+				{% for tarefa in done %}
+				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+					{{tarefa.nomeTarefa}}
 				</div>
-				{% endif %}
 				{% endfor %}
 			</div>
 		</div>

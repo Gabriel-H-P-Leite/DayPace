@@ -8,6 +8,8 @@ urlpatterns = [
     path('registro/', views.cadastrar, name='registro'),
     path("editar/", views.editar, name="editar"),
     path("projetos/", views.consultarProjeto, name="projetos"),
-    path("kanban/<int:id>/", views.quadro, name="quadro"),
+    path("kanban/<int:id>/", views.consultarTarefa, name="consultarTarefa"),
     path("projetos/criar/", views.cadastrarProjeto, name="cadastrarProjeto"),
+    path("tarefa/adicionar/<int:id>/", views.cadastrarTarefa, name="cadastrarTarefa"),
+    path("tarefa/mover/", views.moverTarefa, name="moverTarefa"),
 ]
