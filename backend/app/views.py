@@ -124,7 +124,7 @@ def cadastrarTarefa(request, id):
             status="todo",
             projeto=projeto
         )
-    return redirect("quadro", id=id)
+    return redirect("consultarTarefa", id=id)
 
 @login_required
 def consultarTarefa(request, id):
@@ -144,13 +144,11 @@ def consultarTarefa(request, id):
 
 @login_required
 def moverTarefa(request):
-
     data = json.loads(request.body)
 
     tarefa = Tarefa.objects.get(id=data["id"])
 
     tarefa.status = data["status"]
-
     tarefa.save()
 
     return JsonResponse({"ok": True})
