@@ -9,23 +9,37 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body id='fundao'>
-		<div id='barra'>
+		<div id='cadastraNota' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
 			<form method='POST' action='{% url 'cadastrarTarefa' projeto.id %}'>
 				{% csrf_token %}
 				<input name='nome' class='caixaTexto' type="text" placeholder="Tarefa">
 				<input name='descricao' class='caixaTexto' type="text" placeholder="Descrição">
-				<button class='botao'>Adicionar nota</button>
+				<button class='botao nota'>Adicionar nota</button>
 			</form>
-			<div class='titulo sombra'>
-				notas:
-				{{ tarefas|length }}
+		</div>
+		<div id='excluiNota' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
+			<div class='titulo sombra'>{{ tarefas|length }} NOTAS</div>
+			{% for tarefa in tarefas %}
+			<div>
+				<div class="nota excluir">
+					{{ tarefa.nomeTarefa }}
+					<a href="{% url 'excluirTarefa' tarefa.id %}"> ✕ </a>
+				</div>
 			</div>
+			{% endfor %}
+		</div>
+		<div id='barra'>
+			<a class='botao nota' onclick='let el = document.getElementById("cadastraNota"); el.style.display=""; el.style.opacity="1";'>Adicionar nota</a>
+			<a class='botao nota'>Editar nota</a>
+			<a class='botao nota' onclick='let el = document.getElementById("excluiNota"); el.style.display=""; el.style.opacity="1";'>Apagar nota</a>
 		</div>
 		<div id='quadro'>
 			<div class='coluna fazer' data-status='todo'>
 				<h2 class='titulo sombra'>A Fazer</h2>
 				{% for tarefa in todo %}
-				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
 					{{tarefa.descricao}}
 				</div>
@@ -34,7 +48,7 @@
 			<div class='coluna fazendo' data-status='doing'>
 				<h2 class='titulo sombra'>Fazendo</h2>
 				{% for tarefa in doing %}
-				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
 					{{tarefa.descricao}}
 				</div>
@@ -43,7 +57,7 @@
 			<div class='coluna concluido' data-status='done'>
 				<h2 class='titulo sombra'>Concluido</h2>
 				{% for tarefa in done %}
-				<div class='nota' draggable='true' data-id='{{tarefa.id}}'>
+				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
 					{{tarefa.descricao}}
 				</div>

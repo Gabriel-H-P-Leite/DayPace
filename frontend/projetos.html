@@ -12,9 +12,9 @@
 		<div class='centro'>
 			<div class='caixa'>
 				<h1 class='bem-vindo'>Meus Projetos</h1>
-				<div id="projetos">
+				<div class='rolagem'>
 					{% for projeto in projetos %}
-					<a class="botao" href="{% url 'consultarTarefa' projeto.id %}">
+					<a class="botao nota" href="{% url 'consultarTarefa' projeto.id %}">
 						{{ projeto.nomeProjeto }}
 					</a>
 					{% empty %}
@@ -22,8 +22,8 @@
 					{% endfor %}
 				</div>
 				<div class='painel'>
-					<a class='botao' href="{% url 'cadastrarProjeto' %}">Novo Projeto</a>
-					<a class='botao' href="{% url 'home' %}">Voltar</a>
+					<a class='botao nota' href="{% url 'cadastrarProjeto' %}">Novo Projeto</a>
+					<a class='botao nota' href="{% url 'home' %}">Voltar</a>
 				</div>
 			</div>
 		</div>

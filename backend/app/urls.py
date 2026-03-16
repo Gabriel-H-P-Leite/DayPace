@@ -12,4 +12,6 @@ urlpatterns = [
     path("projetos/criar/", views.cadastrarProjeto, name="cadastrarProjeto"),
     path("tarefa/adicionar/<int:id>/", views.cadastrarTarefa, name="cadastrarTarefa"),
     path("tarefa/mover/", views.moverTarefa, name="moverTarefa"),
+    path("tarefa/remover/<int:id>/", views.excluirTarefa, name="excluirTarefa"),
+    path("tarefa/prioridade/", views.ordenarTarefa),
 ]

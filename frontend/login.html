@@ -11,7 +11,8 @@
 	<body>
 		{% if messages %}
 			{% for message in messages %}
-				<div class="caixa" id="aviso">
+				<div class="caixa frente">
+					<div class='fechar'>X</div>
 					{{ message }}
 				</div>
 			{% endfor %}

@@ -13,16 +13,17 @@ function getCookie(name) {
 	}
 	return cookieValue;
 }
-
-//ve se ter id aviso na pagina
-if (document.getElementById("aviso") === null) {
-	console.log("Sem aviso");
+//Fechar
+//ve se tem fechar
+if (document.querySelectorAll(".fechar") === null) {
+	console.log("Sem fechar");
 } else {
-	//id aviso some quando clicado
-	document.getElementById("aviso").addEventListener("click", function() {
-		document.getElementById("aviso").style.opacity = "0";
-		document.getElementById("aviso").style.transition = "opacity 0.3s";
-		setTimeout(function() {document.getElementById("aviso").style.display = "none";}, 1000);
+	document.querySelectorAll(".fechar").forEach(botao => {
+		botao.addEventListener("click", function(){
+			this.parentElement.style.opacity = "0";
+			this.parentElement.style.transition = "opacity 0.3s";
+			setTimeout(() => { this.parentElement.style.display = "none"; }, 300);
+		});
 	});
 }
 //moverTarefa
@@ -57,3 +58,30 @@ document.querySelectorAll(".coluna").forEach(coluna => {
 		}
 	})
 })
+let arrastando = null;
+document.querySelectorAll(".tarefa").forEach(nota => {
+	nota.addEventListener("dragstart", function(){
+		arrastando = this;
+	});
+	nota.addEventListener("dragover", function(e){
+		e.preventDefault();
+	});
+	nota.addEventListener("drop", function(){
+		let idArrastado = arrastando.dataset.id;
+		let idAlvo = this.dataset.id;
+		// mover visualmente
+		this.parentNode.insertBefore(arrastando, this);
+		// enviar para backend
+		fetch(`/tarefa/prioridade/`,{
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json",
+				"X-CSRFToken": csrftoken
+			},
+			body:JSON.stringify({
+				tarefa: idArrastado,
+				acima_de: idAlvo
+			})
+		});
+	});
+});

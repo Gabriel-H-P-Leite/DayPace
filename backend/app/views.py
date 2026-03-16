@@ -3,10 +3,11 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import EditarUsuarioForm
 from .models import Projeto, Tarefa
+
 
 def home(request):
     return render(request, 'home.html')
@@ -127,13 +128,19 @@ def cadastrarTarefa(request, id):
     return redirect("consultarTarefa", id=id)
 
 @login_required
+def excluirTarefa(request, id):
+    tarefa = get_object_or_404(Tarefa, id=id)
+    tarefa.delete()
+    return redirect("consultarTarefa", tarefa.projeto.id)
+
+@login_required
 def consultarTarefa(request, id):
     projeto = Projeto.objects.get(id=id, user=request.user)
     tarefas = Tarefa.objects.filter(projeto=projeto)
     todo = Tarefa.objects.filter(projeto=projeto, status="todo")
     doing = Tarefa.objects.filter(projeto=projeto, status="doing")
     done = Tarefa.objects.filter(projeto=projeto, status="done")
-
+    Tarefa.objects.filter(projeto=projeto).order_by("prioridade")
     return render(request, "kanban.html", {
         "projeto": projeto,
         "tarefas": tarefas,
@@ -152,3 +159,14 @@ def moverTarefa(request):
     tarefa.save()
 
     return JsonResponse({"ok": True})
+
+@login_required
+def ordenarTarefa(request):
+    data = json.loads(request.body)
+
+    tarefa = Tarefa.objects.get(id=data["tarefa"])
+
+    alvo = Tarefa.objects.get(id=data["acima_de"])
+    tarefa.prioridade = alvo.prioridade + 1
+    tarefa.save()
+    return JsonResponse({"status":"ok"})
