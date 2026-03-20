@@ -10,7 +10,7 @@ class Projeto(models.Model):
     descricao = models.CharField(max_length=255)
     dataInicio = models.DateField(default=timezone.now)
     dataFim = models.DateField(null=True, blank=True)
-    prioridade = models.CharField(max_length=10)
+    prioridade = models.IntegerField(default=0)
 
     def __str__(self):
         return self.nomeProjeto
@@ -28,7 +28,7 @@ class Tarefa(models.Model):
     dataFim = models.DateField(null=True, blank=True)
     prioridade = models.IntegerField(default=0)
     etiqueta = models.CharField(max_length=30)
-
+    
     projeto = models.ForeignKey(
         Projeto,
         on_delete=models.CASCADE,

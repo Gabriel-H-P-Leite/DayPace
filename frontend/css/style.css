@@ -125,9 +125,9 @@ body {
 .rolagem{
 	text-align: center;
 	justify-content: center;
+	overflow: auto;
 	margin:10%;
-	overflow:auto;
-	height:200px;
+	max-height:200px;
 }
 .rolagem .botao{
 	margin:5px auto;
@@ -184,17 +184,28 @@ body {
 	flex-direction: column;
 	align-items:center;
 }
-.excluir a{
-	color:red;
-	padding:2px;
-}
 .excluir{
-	align-items:right;
+	color:transparent;
+	padding:2px;
+	background: transparent;
 }
-.excluir a:hover{
+.excluir:hover{
 	color:white;
 	background:red;
-	width:100%;
-	height:100%;
 	cursor:pointer;
+}
+.preenchido {
+	position: relative;
+	overflow: hidden;
+	margin:15px 0;
+}
+.preencher {
+	width: 0%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transition: 0.3s;
+}
+.preenchido:hover .preencher {
+	width: 100%;
 }

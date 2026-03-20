@@ -21,14 +21,14 @@
 		<div id='excluiNota' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<div class='titulo sombra'>{{ tarefas|length }} NOTAS</div>
+			<div class='rolagem'>
 			{% for tarefa in tarefas %}
-			<div>
-				<div class="nota excluir">
+				<div class="nota preenchido">
 					{{ tarefa.nomeTarefa }}
-					<a href="{% url 'excluirTarefa' tarefa.id %}"> ✕ </a>
+					<a class='excluir preencher' href="{% url 'excluirTarefa' tarefa.id %}"> ✕ </a>
 				</div>
-			</div>
 			{% endfor %}
+			</div>
 		</div>
 		<div id='barra'>
 			<a class='botao nota' onclick='let el = document.getElementById("cadastraNota"); el.style.display=""; el.style.opacity="1";'>Adicionar nota</a>

@@ -94,7 +94,7 @@ def cadastrarProjeto(request):
             )
             return redirect("projetos")
 
-    return render(request, "cadastrar_projeto.html")
+    return render(request, "projetos.html")
 
 @login_required
 def editarProjeto(request):
@@ -102,9 +102,10 @@ def editarProjeto(request):
     return render(request, "projetos.html", {"projetos": projetos})
 
 @login_required
-def excluirProjeto(request):
-    projetos = Projeto.objects.filter(user=request.user)
-    return render(request, "projetos.html", {"projetos": projetos})
+def excluirProjeto(request, id):
+    projeto = get_object_or_404(Projeto, id=id)
+    projeto.delete()
+    return redirect("projetos")
 
 @login_required
 def consultarProjeto(request):
@@ -135,12 +136,24 @@ def excluirTarefa(request, id):
 
 @login_required
 def consultarTarefa(request, id):
-    projeto = Projeto.objects.get(id=id, user=request.user)
+    projeto = Projeto.objects.get(id=id)
     tarefas = Tarefa.objects.filter(projeto=projeto)
-    todo = Tarefa.objects.filter(projeto=projeto, status="todo")
-    doing = Tarefa.objects.filter(projeto=projeto, status="doing")
-    done = Tarefa.objects.filter(projeto=projeto, status="done")
-    Tarefa.objects.filter(projeto=projeto).order_by("prioridade")
+
+    todo = Tarefa.objects.filter(
+        projeto=projeto,
+        status="todo"
+    ).order_by("prioridade")
+
+    doing = Tarefa.objects.filter(
+        projeto=projeto,
+        status="doing"
+    ).order_by("prioridade")
+
+    done = Tarefa.objects.filter(
+        projeto=projeto,
+        status="done"
+    ).order_by("prioridade")
+
     return render(request, "kanban.html", {
         "projeto": projeto,
         "tarefas": tarefas,
@@ -161,12 +174,15 @@ def moverTarefa(request):
     return JsonResponse({"ok": True})
 
 @login_required
-def ordenarTarefa(request):
+def ordenarTarefas(request):
+
     data = json.loads(request.body)
 
-    tarefa = Tarefa.objects.get(id=data["tarefa"])
+    for item in data:
 
-    alvo = Tarefa.objects.get(id=data["acima_de"])
-    tarefa.prioridade = alvo.prioridade + 1
-    tarefa.save()
+        tarefa = Tarefa.objects.get(id=item["id"])
+        tarefa.prioridade = item["prioridade"]
+        tarefa.status = item["status"]
+        tarefa.save()
+
     return JsonResponse({"status":"ok"})

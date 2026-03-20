@@ -9,9 +9,33 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
+		<div id='cadastrarProjeto' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
+			<div class='titulo'>Novo projeto</div>
+				<form method="post" action="{% url 'cadastrarProjeto' %}" >
+					{% csrf_token %}
+					<input name='nome' class='caixaTexto' type="text" placeholder="Nome do projeto">
+					<button type="submit" class='botao nota'>Criar</button>
+				</form>
+		</div>
+		<div id='excluiProjeto' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
+			<div class='titulo'>{{ projetos|length }} Projetos</div>
+			{% for projeto in projetos %}
+			<div class='rolagem'>
+				<form method="post" action="{% url 'excluirProjeto' projeto.id %}" >
+					<div class='nota preenchido'>
+						{{ projeto.nomeProjeto }}
+						{% csrf_token %}
+						<button type="submit" class='excluir preencher'> X </button>
+					</div>
+				</form>
+			</div>
+			{% endfor %}
+		</div>
 		<div class='centro'>
 			<div class='caixa'>
-				<h1 class='bem-vindo'>Meus Projetos</h1>
+				<h1 class='titulo'>Meus Projetos</h1>
 				<div class='rolagem'>
 					{% for projeto in projetos %}
 					<a class="botao nota" href="{% url 'consultarTarefa' projeto.id %}">
@@ -22,10 +46,13 @@
 					{% endfor %}
 				</div>
 				<div class='painel'>
-					<a class='botao nota' href="{% url 'cadastrarProjeto' %}">Novo Projeto</a>
+					<a class='botao nota' onclick='let el = document.getElementById("cadastrarProjeto"); el.style.display=""; el.style.opacity="1";'>Novo projeto</a>
+					<a class='botao nota' onclick='let el = document.getElementById("excluiProjeto"); el.style.display=""; el.style.opacity="1";'>Excluir projeto</a>
 					<a class='botao nota' href="{% url 'home' %}">Voltar</a>
 				</div>
 			</div>
 		</div>
+		{% load static %}
+		<script src="{% static 'script.js' %}"></script>
 	</body>
 </html>

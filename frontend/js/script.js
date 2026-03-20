@@ -59,29 +59,53 @@ document.querySelectorAll(".coluna").forEach(coluna => {
 	})
 })
 let arrastando = null;
-document.querySelectorAll(".tarefa").forEach(nota => {
-	nota.addEventListener("dragstart", function(){
-		arrastando = this;
-	});
-	nota.addEventListener("dragover", function(e){
-		e.preventDefault();
-	});
-	nota.addEventListener("drop", function(){
-		let idArrastado = arrastando.dataset.id;
-		let idAlvo = this.dataset.id;
-		// mover visualmente
-		this.parentNode.insertBefore(arrastando, this);
-		// enviar para backend
-		fetch(`/tarefa/prioridade/`,{
-			method:"POST",
-			headers:{
-				"Content-Type":"application/json",
-				"X-CSRFToken": csrftoken
-			},
-			body:JSON.stringify({
-				tarefa: idArrastado,
-				acima_de: idAlvo
-			})
-		});
-	});
+
+document.querySelectorAll(".nota").forEach(nota => {
+
+    nota.addEventListener("dragstart", function(){
+        arrastando = this;
+    });
+
 });
+
+document.querySelectorAll(".coluna").forEach(coluna => {
+
+    coluna.addEventListener("dragover", function(e){
+        e.preventDefault();
+    });
+
+    coluna.addEventListener("drop", function(){
+
+        this.appendChild(arrastando);
+
+        atualizarOrdem(this);
+
+    });
+
+});
+function atualizarOrdem(coluna){
+
+    let status = coluna.dataset.status;
+
+    let tarefas = [];
+
+    coluna.querySelectorAll(".tarefa").forEach((nota, index)=>{
+
+        tarefas.push({
+            id: nota.dataset.id,
+            prioridade: index,
+            status: status
+        });
+
+    });
+
+    fetch("/tarefas/ordenar/",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "X-CSRFToken": csrftoken
+        },
+        body:JSON.stringify(tarefas)
+    });
+
+}

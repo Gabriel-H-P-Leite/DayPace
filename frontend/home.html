@@ -21,35 +21,35 @@
 				<div class='painel'>
 					{% if user.is_authenticated %}
 						<a href="{% url 'projetos' %}">
-							<div class='botao'>
+							<div class='botao nota'>
 								Projetos
 							</div>
 						</a>
 					{% endif %}
 					{% if user.is_authenticated %}
 						<a href="{% url 'editar' %}">
-							<div class='botao'>
+							<div class='botao nota'>
 								Editar
 							</div>
 						</a>
 					{% endif %}
 					{% if not user.is_authenticated %}
 						<a href="{% url 'login' %}">
-							<div class='botao'>
+							<div class='botao nota'>
 								Login
 							</div>
 						</a>
 					{% endif %}
 					{% if not user.is_authenticated %}
 						<a href="{% url 'registro' %}">
-							<div class='botao'>
+							<div class='botao nota'>
 								Registrar
 							</div>
 						</a>
 					{% endif %}
 					{% if user.is_authenticated %}
 						<a href="{% url 'logout' %}">
-							<div class='botao'>
+							<div class='botao nota'>
 								Sair
 							</div>
 						</a>
