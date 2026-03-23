@@ -18,6 +18,20 @@
 					<button type="submit" class='botao nota'>Criar</button>
 				</form>
 		</div>
+		<div id='editarProjeto' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
+			<div class='titulo'>{{ projetos|length }} Projetos</div>
+			<div class='rolagem'>
+			{% for projeto in projetos %}
+				<form class='projetos' method="post" action="{% url 'editarProjeto' projeto.id %}" >
+						{{ projeto.nomeProjeto }}
+						{% csrf_token %}
+						<input name="nome" class='caixaTexto' placeholder="Novo nome">
+						<button class='nota botao' type="submit" >Editar</button>
+				</form>
+			{% endfor %}
+			</div>
+		</div>
 		<div id='excluiProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<div class='titulo'>{{ projetos|length }} Projetos</div>
@@ -47,6 +61,7 @@
 				</div>
 				<div class='painel'>
 					<a class='botao nota' onclick='let el = document.getElementById("cadastrarProjeto"); el.style.display=""; el.style.opacity="1";'>Novo projeto</a>
+					<a class='botao nota' onclick='let el = document.getElementById("editarProjeto"); el.style.display=""; el.style.opacity="1";'>Editar projeto</a>
 					<a class='botao nota' onclick='let el = document.getElementById("excluiProjeto"); el.style.display=""; el.style.opacity="1";'>Excluir projeto</a>
 					<a class='botao nota' href="{% url 'home' %}">Voltar</a>
 				</div>

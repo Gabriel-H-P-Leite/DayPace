@@ -97,9 +97,18 @@ def cadastrarProjeto(request):
     return render(request, "projetos.html")
 
 @login_required
-def editarProjeto(request):
-    projetos = Projeto.objects.filter(user=request.user)
-    return render(request, "projetos.html", {"projetos": projetos})
+def editarProjeto(request, id):
+    projeto = get_object_or_404(Projeto, id=id)
+    if request.user != projeto.user:
+        return redirect("projetos")
+
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        projeto.nomeProjeto = nome
+        projeto.save()
+    return redirect("projetos")
+
+    return render(request, "projetos.html", {"projeto": projeto})
 
 @login_required
 def excluirProjeto(request, id):

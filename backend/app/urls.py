@@ -10,6 +10,7 @@ urlpatterns = [
     path("projetos/", views.consultarProjeto, name="projetos"),
     path("kanban/<int:id>/", views.consultarTarefa, name="consultarTarefa"),
     path("projetos/criar/", views.cadastrarProjeto, name="cadastrarProjeto"),
+    path("projetos/editar/<int:id>/", views.editarProjeto, name="editarProjeto"),
     path("projetos/excluir/<int:id>/", views.excluirProjeto, name="excluirProjeto"),
     path("tarefa/adicionar/<int:id>/", views.cadastrarTarefa, name="cadastrarTarefa"),
     path("tarefa/mover/", views.moverTarefa, name="moverTarefa"),
