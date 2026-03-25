@@ -14,10 +14,7 @@
 
 				{% load static %}
 				<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
-
-				<div class='titulo'>
-					<b>Bem-vindo {{ user.first_name|capfirst}} {{ user.last_name|capfirst}}</b>
-				</div>
+				<h1 class='titulo'>Bem-vindo {{ user.first_name|capfirst}} {{ user.last_name|capfirst}}</h1>
 				<div class='painel'>
 					{% if user.is_authenticated %}
 						<a href="{% url 'projetos' %}">
@@ -29,7 +26,7 @@
 					{% if user.is_authenticated %}
 						<a href="{% url 'editar' %}">
 							<div class='botao nota'>
-								Editar
+								Editar usuário
 							</div>
 						</a>
 					{% endif %}

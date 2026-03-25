@@ -11,7 +11,7 @@
 	<body>
 		<div id='cadastrarProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
-			<div class='titulo'>Novo projeto</div>
+			<h1 class='titulo'>Novo projeto</h1>
 				<form method="post" action="{% url 'cadastrarProjeto' %}" >
 					{% csrf_token %}
 					<input name='nome' class='caixaTexto' type="text" placeholder="Nome do projeto">
@@ -20,32 +20,51 @@
 		</div>
 		<div id='editarProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
-			<div class='titulo'>{{ projetos|length }} Projetos</div>
-			<div class='rolagem'>
-			{% for projeto in projetos %}
-				<form class='projetos' method="post" action="{% url 'editarProjeto' projeto.id %}" >
-						{{ projeto.nomeProjeto }}
-						{% csrf_token %}
-						<input name="nome" class='caixaTexto' placeholder="Novo nome">
-						<button class='nota botao' type="submit" >Editar</button>
-				</form>
-			{% endfor %}
-			</div>
+			<h1 class='titulo'>Editar projeto</h1>
+			<form method="post" action="{% url 'editarProjeto' %}">
+				{% csrf_token %}
+				<select id="selectProjeto" name="id">
+					<option value="" disabled selected>Selecione um projeto</option>
+					{% for projeto in projetos %}
+					<option value="{{ projeto.id }}" data-nome="{{ projeto.nomeProjeto }}">
+					{{ projeto.nomeProjeto }}
+					</option>
+					{% endfor %}
+				</select>
+				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
+				<button class='nota botao' id='botaoSalvar' type='submit'>Salvar</button>
+				<script>
+				document.getElementById("selectProjeto").addEventListener("change", function() {
+					const selected = this.options[this.selectedIndex];
+					const nome = selected.getAttribute("data-nome");
+					document.getElementById("inputNome").value = nome || "";
+				});
+				const botao = document.getElementById("botaoSalvar");
+				const select = document.getElementById("selectProjeto");
+				document.addEventListener("DOMContentLoaded", function() {
+					botao.disabled = true;
+				});
+				select.addEventListener("change", function() {
+					botao.disabled = false;
+				});
+				</script>
+			</form>
 		</div>
 		<div id='excluiProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
-			<div class='titulo'>{{ projetos|length }} Projetos</div>
-			{% for projeto in projetos %}
+			<h1 class='titulo'>Excluir projeto</h1>
+			<b>{{ projetos|length }} Projetos</b>
 			<div class='rolagem'>
-				<form method="post" action="{% url 'excluirProjeto' projeto.id %}" >
-					<div class='nota preenchido'>
-						{{ projeto.nomeProjeto }}
-						{% csrf_token %}
-						<button type="submit" class='excluir preencher'> X </button>
-					</div>
-				</form>
+				{% for projeto in projetos %}
+					<form method="post" action="{% url 'excluirProjeto' projeto.id %}" >
+						<div class='nota preenchido'>
+							{{ projeto.nomeProjeto }}
+							{% csrf_token %}
+							<button type="submit" class='excluir preencher'> X </button>
+						</div>
+					</form>
+				{% endfor %}
 			</div>
-			{% endfor %}
 		</div>
 		<div class='centro'>
 			<div class='caixa'>

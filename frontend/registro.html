@@ -21,8 +21,7 @@
 		<script src="{% static 'script.js' %}"></script>
 		<div class='centro'>
 			<div class='caixa'>
-			{% load static %}
-			<img src="{% static 'logo.png' %}" alt="logo" class='logo'> 
+				<h1 class='titulo'>Registrar</h1>
 			<form method="POST">
 				{% csrf_token %}
 				<input class='caixaTexto' type="text" name="nomeUsuario" placeholder="Nome de usuário">
@@ -31,11 +30,11 @@
 				<input class='caixaTexto' type="email" name="email" placeholder="Email">
 				<input class='caixaTexto' type="password" name="senha" placeholder="Senha">
 				<div class='painel'>
-					<button class='botao' type="submit">
+					<button class='botao nota' type="submit">
 						Registrar
 					</button>
 					<a href="{% url 'home' %}">
-						<div class='botao'>Voltar</div>
+						<div class='botao nota'>Voltar</div>
 					</a>
 				</div>
 			</form>

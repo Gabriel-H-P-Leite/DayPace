@@ -97,18 +97,22 @@ def cadastrarProjeto(request):
     return render(request, "projetos.html")
 
 @login_required
-def editarProjeto(request, id):
-    projeto = get_object_or_404(Projeto, id=id)
-    if request.user != projeto.user:
-        return redirect("projetos")
-
+def editarProjeto(request):
     if request.method == "POST":
+        id = request.POST.get("id")
         nome = request.POST.get("nome")
+        prioridade = request.POST.get("prioridade")
+
+        projeto = get_object_or_404(Projeto, id=id)
         projeto.nomeProjeto = nome
+
+        if prioridade is None or prioridade == "":
+            projeto.prioridade = None
+        else:
+            projeto.prioridade = int(prioridade)
+
         projeto.save()
     return redirect("projetos")
-
-    return render(request, "projetos.html", {"projeto": projeto})
 
 @login_required
 def excluirProjeto(request, id):

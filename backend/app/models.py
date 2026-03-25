@@ -10,7 +10,7 @@ class Projeto(models.Model):
     descricao = models.CharField(max_length=255)
     dataInicio = models.DateField(default=timezone.now)
     dataFim = models.DateField(null=True, blank=True)
-    prioridade = models.IntegerField(default=0)
+    prioridade = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.nomeProjeto

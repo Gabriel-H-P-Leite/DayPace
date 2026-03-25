@@ -1,8 +1,8 @@
 :root {
 	--note : #f6e68e; 
 	--font : #efefef;
-	--border : rgba(255,255,255,0.4);
-	--background : rgba(0,0,0, 0.3); 
+	--border : rgba(255,255,255,0.2);
+	--background : rgba(255,255,255, 0.1); 
 }
 *{
 	font-family: "Gill Sans", sans-serif;
@@ -10,8 +10,23 @@
 a, button{
 	all: unset;
 }
-body {
-	background: radial-gradient( ellipse 14% 7% at center, #efefef 99%, #dddddd 100%);
+button:disabled:hover,button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+body, html{
+	background:
+	linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%),
+	linear-gradient(
+		to right, 
+		#efefef 0%,
+		#efefef 33%,
+		#dddddd 33%,
+		#dddddd 66%,
+		#efefef 66%,
+		#efefef 100%
+	);
+	background-attachment: fixed;
 }
 .frente{
 	position: absolute;
@@ -114,8 +129,9 @@ body {
 .titulo{
 	color: var(--note);
 	font-size:150%;
-	margin:0px;
+	margin:5px 0px;
 	text-align: center;
+	text-shadow: 1px 1px 3px black;
 }
 .logo{
 	width:50%;
@@ -140,40 +156,24 @@ body {
 	margin:0px;
 	text-align: center;
 }
+#quadro{	
+	min-height:600px;
+}
 #barra{
 	display: flex;
 	margin:5px 0;
 	padding: 5px;
 	justify-content:space-between;
-	border-radius:10px;
-	border:1px solid rgba(255,255,255,0.3);
-	background:rgba(255,255,255,0.2);
-	backdrop-filter:blur(8px);
 }
 #barra .botao{
 	max-width:10%;
 }
-#quadro{	
+#barra, #quadro, #selectProjeto{
 	border-radius:10px;
-	border:1px solid rgba(255,255,255,0.3);
-	background:rgba(255,255,255,0.2);
+	border:1px solid var(--border);
+	background:var(--background);
 	display: flex;
 	backdrop-filter: blur(8px);
-	min-height:600px;
-}
-#fundao, html{
-	background:
-	linear-gradient(to bottom, var(--background), rgba(0,0,0,0.1)),
-	linear-gradient(
-		to right, 
-		#dddddd 0%,
-		#dddddd 33%,
-		#efefef 33%,
-		#efefef 66%,
-		#dddddd 66%,
-		#dddddd 100%
-	);
-	background-attachment: fixed;
 }
 .coluna{
 	flex: 1;
@@ -193,19 +193,19 @@ body {
 	background:red;
 	cursor:pointer;
 }
-.preenchido {
+.preenchido{
 	position: relative;
 	overflow: hidden;
 	margin:15px 0;
 }
-.preencher {
+.preencher{
 	width: 0%;
 	position: absolute;
 	top: 0;
 	right: 0;
 	transition: 0.3s;
 }
-.preenchido:hover .preencher {
+.preenchido:hover .preencher{
 	width: 100%;
 }
 .projetos{
@@ -216,5 +216,13 @@ body {
 #editarProjetos .rolagem{
 	margin:2%;
 }
-
-
+#selectProjeto{
+	outline: none;
+	display: flex;
+	width:100%;
+	padding: 8px 12px;
+	color: var(--note);
+	font-weight:bold;
+	text-align: center;
+	text-shadow: 0 0 3px #000;
+}
