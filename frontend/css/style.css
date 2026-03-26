@@ -20,10 +20,10 @@ body, html{
 	linear-gradient(
 		to right, 
 		#efefef 0%,
-		#efefef 33%,
-		#dddddd 33%,
-		#dddddd 66%,
-		#efefef 66%,
+		#efefef 33.3%,
+		#dddddd 33.3%,
+		#dddddd 66.6%,
+		#efefef 66.6%,
 		#efefef 100%
 	);
 	background-attachment: fixed;
@@ -63,7 +63,7 @@ body, html{
 	font-size:12px;
 	font-weight:bold;
 	color:rgb(255,128,128);
-	border-radius:50%;
+	border-radius:1.5rem;
 	border:1px solid rgba(255,255,255,0.3);
 	backdrop-filter:blur(10px);
 	box-shadow:0 2px 6px rgba(0,0,0,0.2);
@@ -168,7 +168,7 @@ body, html{
 #barra .botao{
 	max-width:10%;
 }
-#barra, #quadro, #selectProjeto{
+#barra, #quadro, #selectProjeto, #selectTarefa{
 	border-radius:10px;
 	border:1px solid var(--border);
 	background:var(--background);
@@ -216,7 +216,7 @@ body, html{
 #editarProjetos .rolagem{
 	margin:2%;
 }
-#selectProjeto{
+#selectProjeto, #selectTarefa{
 	outline: none;
 	display: flex;
 	width:100%;

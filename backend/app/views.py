@@ -85,14 +85,14 @@ def recuperarSenha(request):
 def cadastrarProjeto(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
-
-        if nome:
+        if not nome or nome.strip() == "":
+            messages.error(request, "Nome não pode ser vazio")
+        else:
             Projeto.objects.create(
                 user=request.user,
                 nomeProjeto=nome.strip(),
-               
             )
-            return redirect("projetos")
+        return redirect("projetos")
 
     return render(request, "projetos.html")
 
@@ -110,8 +110,10 @@ def editarProjeto(request):
             projeto.prioridade = None
         else:
             projeto.prioridade = int(prioridade)
-
-        projeto.save()
+        if not nome or nome.strip() == "":
+            messages.error(request, "Nome não pode ser vazio")
+        else:
+            projeto.save()
     return redirect("projetos")
 
 @login_required
@@ -133,13 +135,34 @@ def cadastrarTarefa(request, id):
         descricao = request.POST.get("descricao")
         projeto = Projeto.objects.get(id=id)
 
-        Tarefa.objects.create(
-            nomeTarefa=nome,
-            descricao=descricao,
-            status="todo",
-            projeto=projeto
-        )
+        if not nome or nome.strip() == "":
+            messages.error(request, "Nome não pode ser vazio")
+        else:
+            Tarefa.objects.create(
+                nomeTarefa=nome,
+                descricao=descricao,
+                status="todo",
+                projeto=projeto
+            )
     return redirect("consultarTarefa", id=id)
+
+@login_required
+def editarTarefa(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        descricao = request.POST.get("descricao")
+        tarefa = get_object_or_404(Tarefa, id=id)
+
+        tarefa.nomeTarefa = nome
+        tarefa.descricao = descricao
+        
+        nome = request.POST.get("nome")
+        if not nome or nome.strip() == "":
+            messages.error(request, "Nome não pode ser vazio")
+        else:
+            tarefa.save()
+    return redirect("consultarTarefa", id=tarefa.projeto.id)
 
 @login_required
 def excluirTarefa(request, id):

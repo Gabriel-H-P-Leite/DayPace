@@ -8,9 +8,18 @@
 		{% load static %}
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
-	<body id='fundao'>
+	<body>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="caixa frente">
+					<div class='fechar'>X</div>
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
 		<div id='cadastraNota' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
+			<h1 class='titulo'>Criar nota</h1>
 			<form method='POST' action='{% url 'cadastrarTarefa' projeto.id %}'>
 				{% csrf_token %}
 				<input name='nome' class='caixaTexto' type="text" placeholder="Tarefa">
@@ -18,9 +27,43 @@
 				<button class='botao nota'>Adicionar nota</button>
 			</form>
 		</div>
+		<div id='editarNota' class="caixa frente" style='display: none;'>
+			<div class='fechar'>X</div>
+			<h1 class='titulo'>Editar nota</h1>
+			<form method="post" action="{% url 'editarTarefa' %}">
+				{% csrf_token %}
+				<select id="selectTarefa" name="id">
+					<option value="" selected disabled>Selecione uma nota</option>
+					{% for tarefa in tarefas %}
+						<option value="{{ tarefa.id }}" data-nome="{{ tarefa.nomeTarefa }}">
+							{{ tarefa.nomeTarefa }}
+						</option>
+					{% endfor %}
+				</select>
+				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
+				<input type="text" name="descricao" id="inputNome" class='caixaTexto' placeholder="Nova descrição">
+				<button class='nota botao' id='botaoSalvar' type='submit'>Salvar</button>
+				<script>
+				document.getElementById("selectTarefa").addEventListener("change", function() {
+					const selected = this.options[this.selectedIndex];
+					const nome = selected.getAttribute("data-nome");
+					document.getElementById("inputNome").value = nome || "";
+				});
+				const botao = document.getElementById("botaoSalvar");
+				const select = document.getElementById("selectTarefa");
+				document.addEventListener("DOMContentLoaded", function() {
+					botao.disabled = true;
+				});
+				select.addEventListener("change", function() {
+					botao.disabled = false;
+				});
+				</script>
+			</form>
+		</div>
 		<div id='excluiNota' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
-			<div class='titulo sombra'>{{ tarefas|length }} NOTAS</div>
+			<h1 class='titulo'>Apagar nota</h1>
+			<b>{{ tarefas|length }} notas</b>
 			<div class='rolagem'>
 			{% for tarefa in tarefas %}
 				<div class="nota preenchido">
@@ -32,8 +75,9 @@
 		</div>
 		<div id='barra'>
 			<a class='botao nota' onclick='let el = document.getElementById("cadastraNota"); el.style.display=""; el.style.opacity="1";'>Adicionar nota</a>
-			<a class='botao nota'>Editar nota</a>
+			<a class='botao nota' onclick='let el = document.getElementById("editarNota"); el.style.display=""; el.style.opacity="1";'>Editar nota</a>
 			<a class='botao nota' onclick='let el = document.getElementById("excluiNota"); el.style.display=""; el.style.opacity="1";'>Apagar nota</a>
+			<a class='botao nota' href="{% url 'projetos' %}">Voltar</a>
 		</div>
 		<div id='quadro'>
 			<div class='coluna fazer' data-status='todo'>

@@ -9,6 +9,14 @@
 		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 	</head>
 	<body>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="caixa frente">
+					<div class='fechar'>X</div>
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
 		<div id='cadastrarProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<h1 class='titulo'>Novo projeto</h1>
