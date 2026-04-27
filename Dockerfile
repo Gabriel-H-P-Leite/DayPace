@@ -1,23 +1,14 @@
-# imagem base
+#base
 FROM python:3.12
-
-# evita cache de bytecode
+#evita cache
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
-# diretório dentro do container
+#diretorio no container
 WORKDIR /app
-
-# copia dependências
+#dependencias
 COPY backend/requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
-
-# copia o projeto
 COPY . .
-
-# porta do Django
+#porta
 EXPOSE 8000
-
-# comando pra rodar
-CMD ["python", "backend/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./init"]
