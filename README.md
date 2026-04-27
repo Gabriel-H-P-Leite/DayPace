@@ -1,6 +1,6 @@
 <img width="1000" alt="logo" src="https://github.com/user-attachments/assets/f8bde5ae-8a5d-4da0-9bdf-5d8b18c939ab" />
 
-# DAYPACE
+# 🗓️ DAYPACE
 
 Ferramenta de gestão de projetos e rotinas com quadro Kanban
 
@@ -9,9 +9,9 @@ Ferramenta de gestão de projetos e rotinas com quadro Kanban
 
 https://github.com/user-attachments/assets/658b4603-ca0f-447b-8f9d-764422a7c19b
 
-##  Rodar
+## ▶️ Rodar
 
-### Python 3.12
+### 🐍 Python 3.12
 #### Baixar dependências
 `asgiref
 Django
@@ -21,7 +21,7 @@ sqlparse`
 #### Rodar o servidor 
 `python backend/manage.py runserver`
 
-### Docker
+### 🐳 Docker
 #### Criar imagem:
 `docker build -t daypace https://github.com/Gabriel-H-P-Leite/Daypace.git#main`
 #### Rodar o container:
