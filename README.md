@@ -5,8 +5,11 @@
 Ferramenta de gestão de projetos e rotinas com quadro Kanban
 
 **Tecnologias usadas:** Docker, HTML, CSS, JavaScript, Django, Django REST, SQLite, Python.
+## 📹  Exemplo
 
-## Rodar
+https://github.com/user-attachments/assets/658b4603-ca0f-447b-8f9d-764422a7c19b
+
+##  Rodar
 
 ### Python 3.12
 #### Baixar dependências
