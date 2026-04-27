@@ -8,7 +8,8 @@ WORKDIR /app
 #dependencias
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+#copia o projeto
 COPY . .
 #porta
 EXPOSE 8000
-CMD ["./init"]
+CMD ["./app/init"]
