@@ -7,13 +7,17 @@ Ferramenta de gestão de projetos e rotinas com quadro Kanban
 **Tecnologias usadas:** Docker, HTML, CSS, JavaScript, Django, Django REST, SQLite, Python.
 
 ## Rodar
+
 ### Python 3.12
-#### Dependências
-`asgiref==3.11.1
-Django==6.0.2
-django-cors-headers==4.9.0
-djangorestframework==3.16.1
-sqlparse==0.5.5`
+#### Baixar dependências
+`asgiref
+Django
+django-cors-headers
+djangorestframework
+sqlparse`
+#### Rodar o servidor 
+`python backend/manage.py runserver`
+
 ### Docker
 #### Criar imagem:
 `docker build -t daypace https://github.com/Gabriel-H-P-Leite/Daypace.git#main`
