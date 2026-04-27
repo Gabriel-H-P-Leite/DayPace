@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 #porta
 EXPOSE 8000
-CMD ["./app/init"]
+CMD ["./init"]
