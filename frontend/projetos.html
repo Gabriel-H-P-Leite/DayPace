@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 		<title>DAYPACE - Projetos</title>
 		{% load static %}
-		<link rel="stylesheet" href="{% static 'style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		{% load static %}
-		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+		<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 	</head>
 	<body>
 		{% if messages %}
@@ -23,7 +23,7 @@
 				<form method="post" action="{% url 'cadastrarProjeto' %}" >
 					{% csrf_token %}
 					<input name='nome' class='caixaTexto' type="text" placeholder="Nome do projeto">
-					<button type="submit" class='botao nota'>Criar</button>
+					<button type="submit" class='botao'>Criar</button>
 				</form>
 		</div>
 		<div id='editarProjeto' class="caixa frente" style='display: none;'>
@@ -40,7 +40,7 @@
 					{% endfor %}
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
-				<button class='nota botao' id='botaoSalvar' type='submit'>Salvar</button>
+				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
 				<script>
 				document.getElementById("selectProjeto").addEventListener("change", function() {
 					const selected = this.options[this.selectedIndex];
@@ -79,7 +79,7 @@
 				<h1 class='titulo'>Meus Projetos</h1>
 				<div class='rolagem'>
 					{% for projeto in projetos %}
-					<a class="botao nota" href="{% url 'consultarTarefa' projeto.id %}">
+					<a class="botao" href="{% url 'consultarTarefa' projeto.id %}">
 						{{ projeto.nomeProjeto }}
 					</a>
 					{% empty %}
@@ -87,14 +87,14 @@
 					{% endfor %}
 				</div>
 				<div class='painel'>
-					<a class='botao nota' onclick='let el = document.getElementById("cadastrarProjeto"); el.style.display=""; el.style.opacity="1";'>Novo projeto</a>
-					<a class='botao nota' onclick='let el = document.getElementById("editarProjeto"); el.style.display=""; el.style.opacity="1";'>Editar projeto</a>
-					<a class='botao nota' onclick='let el = document.getElementById("excluiProjeto"); el.style.display=""; el.style.opacity="1";'>Excluir projeto</a>
-					<a class='botao nota' href="{% url 'home' %}">Voltar</a>
+					<a class='botao' onclick='let el = document.getElementById("cadastrarProjeto"); el.style.display=""; el.style.opacity="1";'>Novo projeto</a>
+					<a class='botao' onclick='let el = document.getElementById("editarProjeto"); el.style.display=""; el.style.opacity="1";'>Editar projeto</a>
+					<a class='botao' onclick='let el = document.getElementById("excluiProjeto"); el.style.display=""; el.style.opacity="1";'>Excluir projeto</a>
+					<a class='botao' href="{% url 'home' %}">Voltar</a>
 				</div>
 			</div>
 		</div>
 		{% load static %}
-		<script src="{% static 'script.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
 	</body>
 </html>

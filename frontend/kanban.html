@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>DAYPACE - Início</title>
+		<title>DAYPACE - {{ projeto.nomeProjeto }}</title>
 		{% load static %}
-		<link rel="stylesheet" href="{% static 'style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		{% load static %}
-		<link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+		<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 	</head>
 	<body>
 		{% if messages %}
@@ -24,7 +24,7 @@
 				{% csrf_token %}
 				<input name='nome' class='caixaTexto' type="text" placeholder="Tarefa">
 				<input name='descricao' class='caixaTexto' type="text" placeholder="Descrição">
-				<button class='botao nota'>Adicionar nota</button>
+				<button class='botao'>Adicionar nota</button>
 			</form>
 		</div>
 		<div id='editarNota' class="caixa frente" style='display: none;'>
@@ -42,7 +42,7 @@
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
 				<input type="text" name="descricao" id="inputNome" class='caixaTexto' placeholder="Nova descrição">
-				<button class='nota botao' id='botaoSalvar' type='submit'>Salvar</button>
+				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
 				<script>
 				document.getElementById("selectTarefa").addEventListener("change", function() {
 					const selected = this.options[this.selectedIndex];
@@ -73,15 +73,38 @@
 			{% endfor %}
 			</div>
 		</div>
-		<div id='barra'>
-			<a class='botao nota' onclick='let el = document.getElementById("cadastraNota"); el.style.display=""; el.style.opacity="1";'>Adicionar nota</a>
-			<a class='botao nota' onclick='let el = document.getElementById("editarNota"); el.style.display=""; el.style.opacity="1";'>Editar nota</a>
-			<a class='botao nota' onclick='let el = document.getElementById("excluiNota"); el.style.display=""; el.style.opacity="1";'>Apagar nota</a>
-			<a class='botao nota' href="{% url 'projetos' %}">Voltar</a>
+		<div class='barra topo'>
+			<div class='esquerda'>
+				{% load static %}
+				<img src="{% static 'img/logo.png' %}" alt="logo" style="width:15%;"> 
+			</div>
+			<div class='direita'>
+				<div class='titulo'>{{ user.first_name|capfirst}}</div>
+			</div>
+		</div>
+		<div class='barra projeto'>
+			<div class='esquerda'>
+				<div class='maior'>Projeto</div>
+				<div class='titulo branco'>{{ projeto.nomeProjeto }}</div>
+			</div>
+			<div class='direita'>
+				<div class='maior'>Tarefas</div>
+				<div class='titulo branco'>{{ tarefas|length }}</div>
+			</div>
+		</div>
+		<div class='barra funcoes'>
+			<div class='esquerda'>
+				<a class='botao' onclick='let el = document.getElementById("cadastraNota"); el.style.display=""; el.style.opacity="1";'> Adicionar nota</a>
+				<a class='botao branco' onclick='let el = document.getElementById("editarNota"); el.style.display=""; el.style.opacity="1";'>󰤀 Editar nota</a>
+				<a class='botao vermelho' onclick='let el = document.getElementById("excluiNota"); el.style.display=""; el.style.opacity="1";'> Apagar nota</a>
+			</div>
+			<div class='direita'>
+				<a class='botao branco' href="{% url 'projetos' %}"> Voltar</a>
+			</div>
 		</div>
 		<div id='quadro'>
 			<div class='coluna fazer' data-status='todo'>
-				<h2 class='titulo sombra'>A Fazer</h2>
+				<div class='titulo'>A Fazer</div>
 				{% for tarefa in todo %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
@@ -90,7 +113,7 @@
 				{% endfor %}
 			</div>
 			<div class='coluna fazendo' data-status='doing'>
-				<h2 class='titulo sombra'>Fazendo</h2>
+				<div class='titulo'>Fazendo</div>
 				{% for tarefa in doing %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
@@ -99,7 +122,7 @@
 				{% endfor %}
 			</div>
 			<div class='coluna concluido' data-status='done'>
-				<h2 class='titulo sombra'>Concluido</h2>
+				<div class='titulo'>Concluido</div>
 				{% for tarefa in done %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
@@ -109,5 +132,5 @@
 			</div>
 		</div>
 		{% load static %}
-		<script src="{% static 'script.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
 	</body>
