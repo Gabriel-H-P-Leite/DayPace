@@ -1,15 +1,23 @@
+# imagem base
 FROM python:3.12
 
-RUN apt-get update && apt-get install -y git
+# evita cache de bytecode
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+# diretório dentro do container
 WORKDIR /app
 
-# clona o repositório
-RUN git clone https://github.com/seu-usuario/seu-repo.git .
+# copia dependências
+COPY backend/requirements.txt .
 
-# instala dependências
-RUN pip install --no-cache-dir -r backend/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# copia o projeto
+COPY . .
+
+# porta do Django
 EXPOSE 8000
 
+# comando pra rodar
 CMD ["python", "backend/manage.py", "runserver", "0.0.0.0:8000"]
