@@ -8,7 +8,7 @@ Ferramenta de gestão de projetos e rotinas com quadro Kanban
 
 ## Rodar
 ### Python 3.12
-#### Dependencias
+#### Dependências
 `asgiref==3.11.1
 Django==6.0.2
 django-cors-headers==4.9.0
