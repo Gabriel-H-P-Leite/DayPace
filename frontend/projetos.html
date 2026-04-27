@@ -61,7 +61,7 @@
 		<div id='excluiProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<h1 class='titulo'>Excluir projeto</h1>
-			<b>{{ projetos|length }} Projetos</b>
+			<b class='maior branco'>{{ projetos|length }} Projetos</b>
 			<div class='rolagem'>
 				{% for projeto in projetos %}
 					<form method="post" action="{% url 'excluirProjeto' projeto.id %}" >
