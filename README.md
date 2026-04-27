@@ -1,12 +1,19 @@
 <img width="3508" height="715" alt="logo" src="https://github.com/user-attachments/assets/f8bde5ae-8a5d-4da0-9bdf-5d8b18c939ab" />
+# Instalação
 
-# Docker
-## Criar imagem:
+## Python
+### Dependencias
+`asgiref==3.11.1
+Django==6.0.2
+django-cors-headers==4.9.0
+djangorestframework==3.16.1
+sqlparse==0.5.5`
+
+## Docker
+### Criar imagem:
 `docker build -t daypace https://github.com/Gabriel-H-P-Leite/Daypace.git#main`
-
-## Rodar o container:
+### Rodar o container:
 `docker run -d \
   --name Daypace \
   -p 8000:8000 \
   daypace`
-
