@@ -13,7 +13,7 @@ https://github.com/user-attachments/assets/658b4603-ca0f-447b-8f9d-764422a7c19b
 
 ### 🐍 Python 3.12
 #### Baixar dependências
-`asgiref
+`pip install --no-cache-dir -r asgiref
 Django
 django-cors-headers
 djangorestframework
