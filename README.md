@@ -19,8 +19,8 @@ django-cors-headers
 djangorestframework
 sqlparse`
 #### Rodar o servidor 
-`python manage.py makemigrations`
-`python manage.py migrate`
+`python manage.py makemigrations`<br>
+`python manage.py migrate`<br>
 `python backend/manage.py runserver`
 
 ### 🐳 Docker
