@@ -25,8 +25,11 @@
 			<form method="POST">
 				<div class='painel'>
 				{% csrf_token %}
+				<div class='campos'>Nome</div>
 				{{ form.first_name }}
+				<div class='campos'>Sobrenome</div>
 				{{ form.last_name }} 
+				<div class='campos'>Email</div>
 				{{ form.email }}
 				<button class="botao" type="submit">Salvar</button>
 					<a href="{% url 'home' %}">
