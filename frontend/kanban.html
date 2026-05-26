@@ -51,6 +51,27 @@
 				<input type="hidden" name="prioridade" id="prioridade" value="0" >
 				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
 				<script>
+				const mais = document.getElementById("mais");
+				const menos = document.getElementById("menos");
+				const limite = {{ tarefas|length }} ;
+				mais.addEventListener("click", function (e) {
+					const prioridade = document.getElementById("prioridade").value;
+					if (prioridade == limite-1) {
+						mais.disabled = true;
+					}
+					if (prioridade+1 > 0) {
+						menos.disabled = false;
+					}
+				});
+				menos.addEventListener("click", function (e) {
+					const prioridade = document.getElementById("prioridade").value;
+					if (prioridade < limite+1) {
+						mais.disabled = false;
+					}
+					if (prioridade == 0) {
+						menos.disabled = true;
+					}
+				});
 				document.getElementById("selectTarefa").addEventListener("change", function() {
 					const selected = this.options[this.selectedIndex];
 					const nome = selected.getAttribute("data-nome");
