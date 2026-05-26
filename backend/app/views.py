@@ -160,11 +160,7 @@ def editarTarefa(request):
 
         if prioridade > quantidade:
             tarefa.prioridade = quantidade
-            return redirect(
-                "consultarTarefa",
-                tarefa.projeto.id
-            )
-        if prioridade:
+        else:
             tarefa.prioridade = prioridade
         tarefa.nomeTarefa = nome
         tarefa.descricao = descricao
