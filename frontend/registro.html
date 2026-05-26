@@ -13,7 +13,7 @@
 			{% for message in messages %}
 				<div class="caixa frente">
 					<div class='fechar'>X</div>
-					{{ message }}
+					<div class='campos'>{{ message }}</div>
 				</div>
 			{% endfor %}
 		{% endif %}
@@ -24,11 +24,16 @@
 				<h1 class='titulo'>Registrar</h1>
 			<form method="POST">
 				{% csrf_token %}
-				<input class='caixaTexto' type="text" name="nomeUsuario" placeholder="Nome de usuário">
-				<input class='caixaTexto' type="text" name="nome" placeholder="Nome">
-				<input class='caixaTexto' type="text" name="sobrenome" placeholder="Sobrenome">
-				<input class='caixaTexto' type="email" name="email" placeholder="Email">
-				<input class='caixaTexto' type="password" name="senha" placeholder="Senha">
+				<div class='campos'>Nome de usuário:</div>
+				<input class='caixaTexto' type="text" name="nomeUsuario" placeholder="Digite seu nome de usuário">
+				<div class='campos'>Nome:</div>
+				<input class='caixaTexto' type="text" name="nome" placeholder="Digite seu nome">
+				<div class='campos'>Sobrenome:</div>
+				<input class='caixaTexto' type="text" name="sobrenome" placeholder="Digite seu sobrenome">
+				<div class='campos'>Email:</div>
+				<input class='caixaTexto' type="email" name="email" placeholder="Digite seu Email">
+				<div class='campos'>Senha:</div>
+				<input class='caixaTexto' type="password" name="senha" placeholder="Digite sua senha">
 				<div class='painel'>
 					<button class='botao' type="submit">
 						Registrar

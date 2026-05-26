@@ -13,7 +13,7 @@
 			{% for message in messages %}
 				<div class="caixa frente">
 					<div class='fechar'>X</div>
-					{{ message }}
+					<div class='campos'>{{ message }}</div>
 				</div>
 			{% endfor %}
 		{% endif %}
@@ -24,8 +24,10 @@
 			<h1 class='titulo'>Login</h1>
 			<form method="POST">
 				{% csrf_token %}
-				<input class='caixaTexto' type="text" name="nomeUsuario" placeholder="Nome de usuário">
-				<input class='caixaTexto' type="password" name="senha" placeholder="Senha">
+				<div class='campos'>Nome de usuário:</div>
+				<input class='caixaTexto' type="text" name="nomeUsuario" placeholder="Digite seu nome de usuário">
+				<div class='campos'>Senha:</div>
+				<input class='caixaTexto' type="password" name="senha" placeholder="Digite sua senha">
 				<div class='painel'>
 					<button class='botao' type="submit">
 						Entrar
