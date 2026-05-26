@@ -153,11 +153,19 @@ def editarTarefa(request):
         nome = request.POST.get("nome")
         descricao = request.POST.get("descricao")
         tarefa = get_object_or_404(Tarefa, id=id)
-        prioridade = request.POST.get("prioridade")
+        prioridade = int(request.POST.get("prioridade"))
+        quantidade = Tarefa.objects.filter(
+            projeto=tarefa.projeto
+        ).count()
 
+        if prioridade > quantidade:
+            tarefa.prioridade = quantidade
+            return redirect(
+                "consultarTarefa",
+                tarefa.projeto.id
+            )
         if prioridade:
-            tarefa.prioridade = int(prioridade)
-                
+            tarefa.prioridade = prioridade
         tarefa.nomeTarefa = nome
         tarefa.descricao = descricao
         

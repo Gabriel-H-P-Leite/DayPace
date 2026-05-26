@@ -266,8 +266,8 @@ html,body{
 .funcoes{
 	margin:15px;
 }
-#mais,#menos,#textoPrioridade,#prioridadeN{
-	color:white;
+.prioridades{
+	color:var(--primary);
 	border-radius:1.5rem;
 	font-size:120%;
 	font-weight:bold;
@@ -275,6 +275,11 @@ html,body{
 }
 #mais:hover,#menos:hover{
 	cursor:pointer;
+}
+#mais,#menos{
+	border:var(--border) 1px solid;
+	padding:0px 5px;
+	border-radius:1.5rem;
 }
 .campos{
 	color:var(--primary);

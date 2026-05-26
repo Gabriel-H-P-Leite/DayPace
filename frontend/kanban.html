@@ -41,12 +41,12 @@
 					{% endfor %}
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
-				<input type="text" name="descricao" id="inputNome" class='caixaTexto' placeholder="Nova descrição">
+				<input type="text" name="descricao" id="inputDescricao" class='caixaTexto' placeholder="Nova descrição">
 				<div>
-					<span class="branco"> Prioridade </span>
-					<button type="button" id="menos"> ▼ </button>
-					<span id="textoPrioridade"> 0 </span>
-					<button type="button" id="mais"> ▲ </button>
+					<span class="campos prioridades"> Prioridade </span>
+					<button class='prioridades' type="button" id="menos"> ▼ </button>
+					<span class='prioridades' id="textoPrioridade"> 0 </span>
+					<button class='prioridades' type="button" id="mais"> ▲ </button>
 				</div>
 				<input type="hidden" name="prioridade" id="prioridade" value="0" >
 				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
@@ -54,12 +54,13 @@
 				document.getElementById("selectTarefa").addEventListener("change", function() {
 					const selected = this.options[this.selectedIndex];
 					const nome = selected.getAttribute("data-nome");
+					const descricao = selected.getAttribute("data-descricao");
 					const prioridadeInput = document.getElementById("prioridade");
 					let prioridade = selected.dataset.prioridade || 0;
 					prioridadeInput.value = prioridade;
 					textoPrioridade.textContent = prioridade;
 					document.getElementById("inputNome").value = nome || "";
-
+					document.getElementById("inputDescricao").value = descricao || "";
 				});
 				const botao = document.getElementById("botaoSalvar");
 				const select = document.getElementById("selectTarefa");
