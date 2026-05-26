@@ -262,3 +262,13 @@ html,body{
 .funcoes{
 	margin:15px;
 }
+#mais,#menos,#textoPrioridade,#prioridadeN{
+	color:white;
+	border-radius:1.5rem;
+	font-size:120%;
+	font-weight:bold;
+	background:var(--background);
+}
+#mais:hover,#menos:hover{
+	cursor:pointer;
+}

@@ -28,6 +28,8 @@ class Tarefa(models.Model):
     dataFim = models.DateField(null=True, blank=True)
     prioridade = models.IntegerField(default=0)
     etiqueta = models.CharField(max_length=30)
+    class Meta:
+        ordering = ['-prioridade']
     
     projeto = models.ForeignKey(
         Projeto,

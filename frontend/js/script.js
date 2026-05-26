@@ -109,3 +109,27 @@ function atualizarOrdem(coluna){
     });
 
 }
+//prioridade
+const prioridadeInput = document.getElementById("prioridade");
+const texto = document.getElementById("textoPrioridade");
+
+document.getElementById("mais")
+.addEventListener("click", function() {
+    prioridadeInput.value =
+        parseInt(prioridadeInput.value) + 1;
+
+    texto.textContent =
+        prioridadeInput.value;
+});
+
+document.getElementById("menos")
+.addEventListener("click", function() {
+    let valor =
+        parseInt(prioridadeInput.value);
+
+    if (valor > 0) {
+        prioridadeInput.value = valor - 1;
+        texto.textContent =
+            prioridadeInput.value;
+    }
+});

@@ -35,19 +35,31 @@
 				<select id="selectTarefa" name="id">
 					<option value="" selected disabled>Selecione uma nota</option>
 					{% for tarefa in tarefas %}
-						<option value="{{ tarefa.id }}" data-nome="{{ tarefa.nomeTarefa }}">
-							{{ tarefa.nomeTarefa }}
+						<option value="{{ tarefa.id }}" data-nome="{{ tarefa.nomeTarefa }}" data-descricao="{{ tarefa.descricao }}" data-prioridade="{{ tarefa.prioridade }}" >
+						{{ tarefa.nomeTarefa }}
 						</option>
 					{% endfor %}
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
 				<input type="text" name="descricao" id="inputNome" class='caixaTexto' placeholder="Nova descrição">
+				<div>
+					<span class="branco"> Prioridade </span>
+					<button type="button" id="menos"> ▼ </button>
+					<span id="textoPrioridade"> 0 </span>
+					<button type="button" id="mais"> ▲ </button>
+				</div>
+				<input type="hidden" name="prioridade" id="prioridade" value="0" >
 				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
 				<script>
 				document.getElementById("selectTarefa").addEventListener("change", function() {
 					const selected = this.options[this.selectedIndex];
 					const nome = selected.getAttribute("data-nome");
+					const prioridadeInput = document.getElementById("prioridade");
+					let prioridade = selected.dataset.prioridade || 0;
+					prioridadeInput.value = prioridade;
+					textoPrioridade.textContent = prioridade;
 					document.getElementById("inputNome").value = nome || "";
+
 				});
 				const botao = document.getElementById("botaoSalvar");
 				const select = document.getElementById("selectTarefa");

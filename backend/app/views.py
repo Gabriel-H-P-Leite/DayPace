@@ -153,7 +153,11 @@ def editarTarefa(request):
         nome = request.POST.get("nome")
         descricao = request.POST.get("descricao")
         tarefa = get_object_or_404(Tarefa, id=id)
+        prioridade = request.POST.get("prioridade")
 
+        if prioridade:
+            tarefa.prioridade = int(prioridade)
+                
         tarefa.nomeTarefa = nome
         tarefa.descricao = descricao
         
@@ -178,18 +182,15 @@ def consultarTarefa(request, id):
     todo = Tarefa.objects.filter(
         projeto=projeto,
         status="todo"
-    ).order_by("prioridade")
-
+    )
     doing = Tarefa.objects.filter(
         projeto=projeto,
         status="doing"
-    ).order_by("prioridade")
-
+    )
     done = Tarefa.objects.filter(
         projeto=projeto,
         status="done"
-    ).order_by("prioridade")
-
+    )
     return render(request, "kanban.html", {
         "projeto": projeto,
         "tarefas": tarefas,
