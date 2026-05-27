@@ -1,4 +1,4 @@
-<img width="1000" alt="logo" src="https://github.com/user-attachments/assets/f8bde5ae-8a5d-4da0-9bdf-5d8b18c939ab" />
+<img width="1000" alt="logo" src="https://raw.githubusercontent.com/Gabriel-H-P-Leite/DayPace/refs/heads/main/frontend/img/logo.png" />
 
 # 🗓️ DAYPACE
 
