@@ -15,6 +15,8 @@ class Projeto(models.Model):
     dataInicio = models.DateField(default=timezone.now)
     dataFim = models.DateField(null=True, blank=True)
     prioridade = models.IntegerField(null=True, blank=True)
+    class Meta:
+        ordering = ['-prioridade']
 
     def __str__(self):
         return self.nomeProjeto

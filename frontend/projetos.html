@@ -135,7 +135,7 @@
 				<h1 class='titulo'>Meus Projetos</h1>
 				<div class='rolagem'>
 					{% for projeto in projetos %}
-					<a class="tarefa nota" href="{% url 'consultarTarefa' projeto.id %}">
+					<a class="tarefa nota" style='cursor:pointer;' draggable='false' href="{% url 'consultarTarefa' projeto.id %}">
 						<span class='notaPrio'>{{ projeto.prioridade }}</span>
 						<div class='espaco'></div>
 						<p class='nome'>{{ projeto.nomeProjeto }}</p>
