@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import EditarUsuarioForm
-from .models import Projeto, Tarefa
+from .models import Projeto, Tarefa, Perfil
 
 
 def home(request):
@@ -20,7 +20,8 @@ def cadastrar(request):
             'email' : request.POST.get("email"),
             'nome' : request.POST.get("nome"),
             'sobrenome' : request.POST.get("sobrenome"),
-            'senha' : request.POST.get("senha")
+            'senha' : request.POST.get("senha"),
+            'telefone' : request.POST.get("telefone")
         }
         #remove espaços em branco e salva tudo em minusculo
         for chave, valor in campos.items():
@@ -45,19 +46,24 @@ def cadastrar(request):
         last_name=campos['sobrenome'],
         password=campos['senha']
         )
+        if Perfil.objects.filter(telefone=campos['telefone']).exists():
+            messages.error(request, "Telefone já cadastrado")
+            return redirect("registro")
+        Perfil.objects.create(user=user, telefone=campos.get('telefone', ''))
         return redirect("login")
     return render(request, "registro.html")
 
 @login_required
 def editar(request):
-    form = EditarUsuarioForm(
-        request.POST or None,
-        instance=request.user
-    )
+    perfil, _ = Perfil.objects.get_or_create(user=request.user)
+    form = EditarUsuarioForm( request.POST or None, instance=request.user)
+
     if request.method == "POST" and form.is_valid():
         form.save()
+        perfil.telefone = request.POST.get("telefone", "")
+        perfil.save()
         return redirect("home")
-    return render(request, "editar.html", {"form": form})
+    return render(request, "editar.html", {"form": form, "perfil": perfil})
 
 def loginV(request):
     if request.method == "POST":
@@ -85,12 +91,15 @@ def recuperarSenha(request):
 def cadastrarProjeto(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
+        descricao = request.POST.get("descricao")
         if not nome or nome.strip() == "":
             messages.error(request, "Nome não pode ser vazio")
         else:
             Projeto.objects.create(
                 user=request.user,
                 nomeProjeto=nome.strip(),
+                descricao=descricao,
+                prioridade = 0
             )
         return redirect("projetos")
 
@@ -101,15 +110,25 @@ def editarProjeto(request):
     if request.method == "POST":
         id = request.POST.get("id")
         nome = request.POST.get("nome")
-        prioridade = request.POST.get("prioridade")
-
         projeto = get_object_or_404(Projeto, id=id)
-        projeto.nomeProjeto = nome
+        prioridade = request.POST.get("prioridade")
+        descricao = request.POST.get("descricao")
+        dataInicio = request.POST.get("dataInicio") or None
+        dataFim = request.POST.get("dataFim") or None
+        prioridade = int(request.POST.get("prioridade"))
+        quantidade = Projeto.objects.filter(user=request.user).count()
 
-        if prioridade is None or prioridade == "":
-            projeto.prioridade = None
+        projeto.nomeProjeto = nome
+        projeto.descricao = descricao
+        projeto.dataInicio = dataInicio
+        projeto.dataFim = dataFim
+
+        if prioridade > quantidade:
+            projeto.prioridade = quantidade
         else:
             projeto.prioridade = int(prioridade)
+
+        #testa nome vazio
         if not nome or nome.strip() == "":
             messages.error(request, "Nome não pode ser vazio")
         else:

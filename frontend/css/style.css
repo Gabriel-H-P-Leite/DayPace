@@ -287,6 +287,7 @@ html,body{
 	border:var(--border) 1px solid;
 	padding:0px 5px;
 	border-radius:1.5rem;
+	user-select: none;
 }
 .campos{
 	color:var(--primary);

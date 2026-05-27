@@ -31,6 +31,8 @@
 				{{ form.last_name }} 
 				<div class='campos'>Email</div>
 				{{ form.email }}
+				<div class='campos'>Telefone</div>
+				<input type="tel" name="telefone" class='caixaTexto' placeholder="Telefone" value="{{ perfil.telefone }}">
 				<button class="botao" type="submit">Salvar</button>
 					<a href="{% url 'home' %}">
 						<div class='botao'>Voltar</div>

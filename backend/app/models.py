@@ -4,6 +4,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+class Perfil(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    telefone = models.CharField(max_length=20, blank=True)
+
 class Projeto(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projetos")
     nomeProjeto = models.CharField(max_length=50)

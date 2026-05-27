@@ -13,7 +13,7 @@
 			{% for message in messages %}
 				<div class="caixa frente">
 					<div class='fechar'>X</div>
-					{{ message }}
+					<span class='campos'>{{ message }}</span>
 				</div>
 			{% endfor %}
 		{% endif %}
@@ -23,6 +23,7 @@
 				<form method="post" action="{% url 'cadastrarProjeto' %}" >
 					{% csrf_token %}
 					<input name='nome' class='caixaTexto' type="text" placeholder="Nome do projeto">
+					<input name='descricao' class='caixaTexto' type="text" placeholder="Descrição do projeto">
 					<button type="submit" class='botao'>Criar</button>
 				</form>
 		</div>
@@ -34,30 +35,85 @@
 				<select id="selectProjeto" name="id">
 					<option value="" disabled selected>Selecione um projeto</option>
 					{% for projeto in projetos %}
-					<option value="{{ projeto.id }}" data-nome="{{ projeto.nomeProjeto }}">
-					{{ projeto.nomeProjeto }}
-					</option>
+						<option 
+						value= "{{ projeto.id }}" 
+						data-nome="{{ projeto.nomeProjeto }}"
+						data-descricao="{{ projeto.descricao }}"
+						data-prioridade="{{ projeto.prioridade }}" 
+						data-inicio="{{ projeto.dataInicio|date:'Y-m-d' }}"
+						data-fim="{{ projeto.dataFim|date:'Y-m-d' }}">
+						{{ projeto.nomeProjeto }}
+						</option>
 					{% endfor %}
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
+				<input type="text" name="descricao" id="inputDescricao" class='caixaTexto' placeholder="Nova descrição">
+				<div class='datas'>
+					<span class='campos'>Início</span>
+					<input type="date" id="inputDataInicio" name="dataInicio" value="{{ projeto.dataInicio|date:'Y-m-d' }}">
+					<span class='campos'>Fim</span>
+					<input type="date" id="inputDataFim" name="dataFim" value="{{ projeto.dataFim|date:'Y-m-d' }}">
+				</div>
+				<div>
+					<span class="campos prioridades"> Prioridade </span>
+					<button class='prioridades' type="button" id="menos"> ▼ </button>
+					<span class='prioridades' id="textoPrioridade"> 0 </span>
+					<button class='prioridades' type="button" id="mais"> ▲ </button>
+				</div>
+				<input type="hidden" name="prioridade" id="prioridade" value="0" >
 				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
-				<script>
-				document.getElementById("selectProjeto").addEventListener("change", function() {
-					const selected = this.options[this.selectedIndex];
-					const nome = selected.getAttribute("data-nome");
-					document.getElementById("inputNome").value = nome || "";
-				});
-				const botao = document.getElementById("botaoSalvar");
-				const select = document.getElementById("selectProjeto");
-				document.addEventListener("DOMContentLoaded", function() {
-					botao.disabled = true;
-				});
-				select.addEventListener("change", function() {
-					botao.disabled = false;
-				});
-				</script>
 			</form>
 		</div>
+		<script>
+		document.getElementById("inputDataInicio").addEventListener("change", function() {
+			document.getElementById("inputDataFim").min = this.value;
+		});
+		document.getElementById("inputDataFim").addEventListener("change", function() {
+			document.getElementById("inputDataInicio").max = this.value;
+		});
+		const mais = document.getElementById("mais");
+		const menos = document.getElementById("menos");
+		const limite = {{ projetos |length }} ;
+		mais.addEventListener("click", function (e) {
+			const prioridade = document.getElementById("prioridade").value;
+			if (prioridade == limite-1) {
+				mais.disabled = true;
+			}
+			if (prioridade+1 > 0) {
+				menos.disabled = false;
+			}
+		});
+		menos.addEventListener("click", function (e) {
+			const prioridade = document.getElementById("prioridade").value;
+			if (prioridade < limite+1) {
+				mais.disabled = false;
+			}
+			if (prioridade == 0) {
+				menos.disabled = true;
+			}
+		});
+		document.getElementById("selectProjeto").addEventListener("change", function() {
+			const selected = this.options[this.selectedIndex];
+			const nome = selected.getAttribute("data-nome");
+			const descricao = selected.getAttribute("data-descricao");
+			const prioridadeInput = document.getElementById("prioridade");
+			let prioridade = selected.dataset.prioridade || 0;
+			prioridadeInput.value = prioridade;
+			textoPrioridade.textContent = prioridade;
+			document.getElementById("inputNome").value = nome || "";
+			document.getElementById("inputDescricao").value = descricao || "";
+			document.getElementById("inputDataInicio").value = selected.dataset.inicio || "";
+			document.getElementById("inputDataFim").value = selected.dataset.fim || "";
+		});
+		const botao = document.getElementById("botaoSalvar");
+		const select = document.getElementById("selectProjeto");
+		document.addEventListener("DOMContentLoaded", function() {
+			botao.disabled = true;
+		});
+		select.addEventListener("change", function() {
+			botao.disabled = false;
+		});
+		</script>
 		<div id='excluiProjeto' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<h1 class='titulo'>Excluir projeto</h1>
@@ -79,8 +135,14 @@
 				<h1 class='titulo'>Meus Projetos</h1>
 				<div class='rolagem'>
 					{% for projeto in projetos %}
-					<a class="botao" href="{% url 'consultarTarefa' projeto.id %}">
-						{{ projeto.nomeProjeto }}
+					<a class="tarefa nota" href="{% url 'consultarTarefa' projeto.id %}">
+						<span class='notaPrio'>{{ projeto.prioridade }}</span>
+						<div class='espaco'></div>
+						<p class='nome'>{{ projeto.nomeProjeto }}</p>
+						<span class='data'>{{ projeto.dataInicio|date:"d/m/Y" }} - </span>
+						<span class='data'>{{ projeto.dataFim|date:"d/m/Y" }}</span>
+						<br>
+						{{ projeto.descricao|truncatechars:255 }}
 					</a>
 					{% empty %}
 					<p class='campos'>Você ainda não tem projetos.</p>
