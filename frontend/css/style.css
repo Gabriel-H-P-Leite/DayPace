@@ -6,7 +6,7 @@
 	--primary : #F0E28A; 
 }
 @font-face {
-    font-family: 'NerdFont';
+    font-family:'NerdFont';
     src: url('/static/fonts/SymbolsNerdFontMono/SymbolsNerdFontMono-Regular.ttf') format('truetype');
 }
 *{
@@ -243,6 +243,8 @@ html,body{
 }
 .tarefa{
 	cursor: grab;
+	position: relative;
+
 	border-radius:7px;
 	margin:5px;
 	height:fit-content;
@@ -266,6 +268,7 @@ html,body{
 	font-size:120%;
 	margin:5px;
 	text-align: center;
+	font-weight:bold;
 }
 .funcoes{
 	margin:15px;
@@ -304,4 +307,19 @@ input[type="date"] {
 	align-items: center;
 	gap: 8px;
 	justify-content: center;
+}
+.data{
+	font-size:12px;
+	font-family:'Courier New'
+}
+.notaPrio{
+	color:black;
+	position: absolute;
+	font-size:12px;
+	top: 5px;
+	right: 5px;
+	text-shadow:-1px -1px 5px #475b66,1px 1px 5px white;
+}
+.espaco{
+	padding:5px;
 }

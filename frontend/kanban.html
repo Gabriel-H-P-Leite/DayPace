@@ -161,8 +161,13 @@
 				<div class='titulo'>A Fazer</div>
 				{% for tarefa in todo %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
+					<span class='notaPrio'>{{ tarefa.prioridade }}</span>
+					<div class='espaco'></div>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
-					{{tarefa.descricao}}
+					<span class='data'>{{ tarefa.dataInicio|date:"d/m/Y" }} - </span>
+					<span class='data'>{{ tarefa.dataFim|date:"d/m/Y" }}</span>
+					<br>
+					{{ tarefa.descricao|truncatechars:255 }}
 				</div>
 				{% endfor %}
 			</div>
@@ -170,8 +175,13 @@
 				<div class='titulo'>Fazendo</div>
 				{% for tarefa in doing %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
+					<span class='notaPrio'>{{ tarefa.prioridade }}</span>
+					<div class='espaco'></div>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
-					{{tarefa.descricao}}
+					<span class='data'>{{ tarefa.dataInicio|date:"d/m/Y" }} - </span>
+					<span class='data'>{{ tarefa.dataFim|date:"d/m/Y" }}</span>
+					<br>
+					{{ tarefa.descricao|truncatechars:255 }}
 				</div>
 				{% endfor %}
 			</div>
@@ -179,8 +189,13 @@
 				<div class='titulo'>Concluido</div>
 				{% for tarefa in done %}
 				<div class='tarefa nota' draggable='true' data-id='{{tarefa.id}}' data-prioridade='{{tarefa.prioridade}}'>
+					<span class='notaPrio'>{{ tarefa.prioridade }}</span>
+					<div class='espaco'></div>
 					<p class='nome'>{{tarefa.nomeTarefa}}</p>
-					{{tarefa.descricao}}
+					<span class='data'>{{ tarefa.dataInicio|date:"d/m/Y" }} - </span>
+					<span class='data'>{{ tarefa.dataFim|date:"d/m/Y" }}</span>
+					<br>
+					{{ tarefa.descricao|truncatechars:255 }}
 				</div>
 				{% endfor %}
 			</div>
