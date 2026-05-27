@@ -35,13 +35,25 @@
 				<select id="selectTarefa" name="id">
 					<option value="" selected disabled>Selecione uma nota</option>
 					{% for tarefa in tarefas %}
-						<option value="{{ tarefa.id }}" data-nome="{{ tarefa.nomeTarefa }}" data-descricao="{{ tarefa.descricao }}" data-prioridade="{{ tarefa.prioridade }}" >
+						<option 
+						value= "{{ tarefa.id }}" 
+						data-nome="{{ tarefa.nomeTarefa }}"
+						data-descricao="{{ tarefa.descricao }}"
+						data-prioridade="{{ tarefa.prioridade }}" 
+						data-inicio="{{ tarefa.dataInicio|date:'Y-m-d' }}"
+						data-fim="{{ tarefa.dataFim|date:'Y-m-d' }}">
 						{{ tarefa.nomeTarefa }}
 						</option>
 					{% endfor %}
 				</select>
 				<input type="text" name="nome" id="inputNome" class='caixaTexto' placeholder="Novo nome">
 				<input type="text" name="descricao" id="inputDescricao" class='caixaTexto' placeholder="Nova descrição">
+				<div class='datas'>
+					<span class='campos'>Início</span>
+					<input type="date" id="inputDataInicio" name="dataInicio" value="{{ tarefa.dataInicio|date:'Y-m-d' }}">
+					<span class='campos'>Fim</span>
+					<input type="date" id="inputDataFim" name="dataFim" value="{{ tarefa.dataFim|date:'Y-m-d' }}">
+				</div>
 				<div>
 					<span class="campos prioridades"> Prioridade </span>
 					<button class='prioridades' type="button" id="menos"> ▼ </button>
@@ -50,50 +62,58 @@
 				</div>
 				<input type="hidden" name="prioridade" id="prioridade" value="0" >
 				<button class='botao' id='botaoSalvar' type='submit'>Salvar</button>
-				<script>
-				const mais = document.getElementById("mais");
-				const menos = document.getElementById("menos");
-				const limite = {{ tarefas|length }} ;
-				mais.addEventListener("click", function (e) {
-					const prioridade = document.getElementById("prioridade").value;
-					if (prioridade == limite-1) {
-						mais.disabled = true;
-					}
-					if (prioridade+1 > 0) {
-						menos.disabled = false;
-					}
-				});
-				menos.addEventListener("click", function (e) {
-					const prioridade = document.getElementById("prioridade").value;
-					if (prioridade < limite+1) {
-						mais.disabled = false;
-					}
-					if (prioridade == 0) {
-						menos.disabled = true;
-					}
-				});
-				document.getElementById("selectTarefa").addEventListener("change", function() {
-					const selected = this.options[this.selectedIndex];
-					const nome = selected.getAttribute("data-nome");
-					const descricao = selected.getAttribute("data-descricao");
-					const prioridadeInput = document.getElementById("prioridade");
-					let prioridade = selected.dataset.prioridade || 0;
-					prioridadeInput.value = prioridade;
-					textoPrioridade.textContent = prioridade;
-					document.getElementById("inputNome").value = nome || "";
-					document.getElementById("inputDescricao").value = descricao || "";
-				});
-				const botao = document.getElementById("botaoSalvar");
-				const select = document.getElementById("selectTarefa");
-				document.addEventListener("DOMContentLoaded", function() {
-					botao.disabled = true;
-				});
-				select.addEventListener("change", function() {
-					botao.disabled = false;
-				});
-				</script>
 			</form>
 		</div>
+		<script>
+		document.getElementById("inputDataInicio").addEventListener("change", function() {
+			document.getElementById("inputDataFim").min = this.value;
+		});
+		document.getElementById("inputDataFim").addEventListener("change", function() {
+			document.getElementById("inputDataInicio").max = this.value;
+		});
+		const mais = document.getElementById("mais");
+		const menos = document.getElementById("menos");
+		const limite = {{ tarefas|length }} ;
+		mais.addEventListener("click", function (e) {
+			const prioridade = document.getElementById("prioridade").value;
+			if (prioridade == limite-1) {
+				mais.disabled = true;
+			}
+			if (prioridade+1 > 0) {
+				menos.disabled = false;
+			}
+		});
+		menos.addEventListener("click", function (e) {
+			const prioridade = document.getElementById("prioridade").value;
+			if (prioridade < limite+1) {
+				mais.disabled = false;
+			}
+			if (prioridade == 0) {
+				menos.disabled = true;
+			}
+		});
+		document.getElementById("selectTarefa").addEventListener("change", function() {
+			const selected = this.options[this.selectedIndex];
+			const nome = selected.getAttribute("data-nome");
+			const descricao = selected.getAttribute("data-descricao");
+			const prioridadeInput = document.getElementById("prioridade");
+			let prioridade = selected.dataset.prioridade || 0;
+			prioridadeInput.value = prioridade;
+			textoPrioridade.textContent = prioridade;
+			document.getElementById("inputNome").value = nome || "";
+			document.getElementById("inputDescricao").value = descricao || "";
+			document.getElementById("inputDataInicio").value = selected.dataset.inicio || "";
+			document.getElementById("inputDataFim").value = selected.dataset.fim || "";
+		});
+		const botao = document.getElementById("botaoSalvar");
+		const select = document.getElementById("selectTarefa");
+		document.addEventListener("DOMContentLoaded", function() {
+			botao.disabled = true;
+		});
+		select.addEventListener("change", function() {
+			botao.disabled = false;
+		});
+		</script>
 		<div id='excluiNota' class="caixa frente" style='display: none;'>
 			<div class='fechar'>X</div>
 			<h1 class='titulo'>Apagar nota</h1>
@@ -102,7 +122,7 @@
 			{% for tarefa in tarefas %}
 				<div class="nota preenchido">
 					{{ tarefa.nomeTarefa }}
-					<a class='excluir preencher' href="{% url 'excluirTarefa' tarefa.id %}"> ✕ </a>
+					<a class='excluir preencher' href="{% url 'excluirTarefa' tarefa.id %}"> X </a>
 				</div>
 			{% endfor %}
 			</div>

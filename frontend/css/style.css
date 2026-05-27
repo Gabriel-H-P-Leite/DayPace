@@ -149,8 +149,12 @@ html,body{
 }
 .excluir:hover{
 	color:white;
+	font-weight:900;
+	align-items: center;
 	background:red;
 	cursor:pointer;
+	line-height: 130%;;
+	text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
 }
 .preenchido{
 	position: relative;
@@ -285,4 +289,19 @@ html,body{
 	color:var(--primary);
 	margin:1% 1%;
 	font-weight:bold;
+}
+input[type="date"] {
+	background-color: var(--background);
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding:3px;
+	color: var(--primary);
+	height:100%;
+}
+.datas{
+	padding:10px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	justify-content: center;
 }

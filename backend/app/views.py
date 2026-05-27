@@ -152,6 +152,8 @@ def editarTarefa(request):
         id = request.POST.get("id")
         nome = request.POST.get("nome")
         descricao = request.POST.get("descricao")
+        dataInicio = request.POST.get("dataInicio") or None
+        dataFim = request.POST.get("dataFim") or None
         tarefa = get_object_or_404(Tarefa, id=id)
         prioridade = int(request.POST.get("prioridade"))
         quantidade = Tarefa.objects.filter(
@@ -164,6 +166,8 @@ def editarTarefa(request):
             tarefa.prioridade = prioridade
         tarefa.nomeTarefa = nome
         tarefa.descricao = descricao
+        tarefa.dataInicio = dataInicio
+        tarefa.dataFim = dataFim
         
         nome = request.POST.get("nome")
         if not nome or nome.strip() == "":
