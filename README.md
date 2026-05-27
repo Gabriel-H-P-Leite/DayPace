@@ -7,9 +7,7 @@ Ferramenta de gestão de projetos e rotinas com quadro Kanban
 **Tecnologias usadas:** Docker, HTML, CSS, JavaScript, Django, Django REST, SQLite, Python.
 ## 📹  Exemplo
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/Gabriel-H-P-Leite/DayPace/raw/refs/heads/main/exemplo.mp4" type="video/mp4">
-</video>
+https://github.com/Gabriel-H-P-Leite/DayPace/raw/refs/heads/main/exemplo.mp4
 
 ## ▶️ Rodar
 
