@@ -76,7 +76,7 @@
 		const limite = {{ projetos |length }} ;
 		mais.addEventListener("click", function (e) {
 			const prioridade = document.getElementById("prioridade").value;
-			if (prioridade == limite-1) {
+			if (prioridade >= limite-1) {
 				mais.disabled = true;
 			}
 			if (prioridade+1 > 0) {
@@ -85,10 +85,10 @@
 		});
 		menos.addEventListener("click", function (e) {
 			const prioridade = document.getElementById("prioridade").value;
-			if (prioridade < limite+1) {
+			if (prioridade <= limite+1) {
 				mais.disabled = false;
 			}
-			if (prioridade == 0) {
+			if (prioridade-1 == 0) {
 				menos.disabled = true;
 			}
 		});
