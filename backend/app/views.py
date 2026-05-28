@@ -62,7 +62,17 @@ def editar(request):
         form.save()
         perfil.telefone = request.POST.get("telefone", "")
         perfil.save()
-        return redirect("home")
+
+        senha = request.POST.get("senha")
+        confirmarSenha = request.POST.get("confirmarSenha")
+        if senha:
+            if senha == confirmarSenha:
+                request.user.set_password(senha)
+                request.user.save()
+                login(request, request.user)  # mantém o usuário logado após mudar senha
+            else:
+                messages.error(request, "As senhas não coincidem")
+                return redirect("editar")
     return render(request, "editar.html", {"form": form, "perfil": perfil})
 
 def loginV(request):

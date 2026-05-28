@@ -24,16 +24,20 @@
 			<h1 class='titulo'>Editar usuário</h1>
 			<form method="POST">
 				<div class='painel'>
-				{% csrf_token %}
-				<div class='campos'>Nome:</div>
-				{{ form.first_name }}
-				<div class='campos'>Sobrenome:</div>
-				{{ form.last_name }} 
-				<div class='campos'>Email:</div>
-				{{ form.email }}
-				<div class='campos'>Telefone:</div>
-				<input type="tel" name="telefone" class='caixaTexto' placeholder="Telefone" value="{{ perfil.telefone }}">
-				<button class="botao" type="submit">Salvar</button>
+					{% csrf_token %}
+					<div class='campos'>Nome:</div>
+					{{ form.first_name }}
+					<div class='campos'>Sobrenome:</div>
+					{{ form.last_name }} 
+					<div class='campos'>Email:</div>
+					{{ form.email }}
+					<div class='campos'>Telefone:</div>
+					<input type="tel" name="telefone" class='caixaTexto' placeholder="Telefone" value="{{ perfil.telefone }}">
+					<div class='campos'>Nova senha:</div>
+					<input type="password" name="senha" class='caixaTexto' placeholder="Nova senha">
+					<div class='campos'>Confirmar senha:</div>
+					<input type="password" name="confirmarSenha" class='caixaTexto' placeholder="Confirmar senha">
+					<button class="botao" type="submit">Salvar</button>
 					<a href="{% url 'home' %}">
 						<div class='botao'>Voltar</div>
 					</a>
