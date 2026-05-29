@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-1md7g&(5gntawe=r473&!4=g$eehagz!na$z=x1%$yl((9w-xy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["daypace.onrender.com"]
 
 # Application definition
 INSTALLED_APPS = [

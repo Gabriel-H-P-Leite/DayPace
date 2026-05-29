@@ -1,15 +1,17 @@
-#base
+# base
 FROM python:3.12
-#evita cache
+# evita cache
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-#diretorio no container
+# diretorio no container
 WORKDIR /app
-#dependencias
+# dependencias
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-#copia o projeto
+# copia o projeto
 COPY . .
-#porta
+# permissao de execucao
+RUN chmod +x init
+# porta
 EXPOSE 8000
 CMD ["./init"]
