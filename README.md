@@ -14,17 +14,15 @@ Ferramenta de gestão de projetos e rotinas com quadro Kanban
 
 ### 🐍 Python 3.12
 #### Baixar dependências
-`pip install --no-cache-dir -r asgiref
-Django
-django-cors-headers
-djangorestframework
-sqlparse`
+`pip install --no-cache-dir -r backend/requirements.txt`
 #### Rodar o servidor 
 
 ```
-python backend/manage.py makemigrations
-python backend/manage.py migrate
-python backend/manage.py runserver
+cd backend
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic --noinput
+gunicorn DayPace.wsgi:application --bind 0.0.0.0:8000
 ```
 
 ### 🐳 Docker
